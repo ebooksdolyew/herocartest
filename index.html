@@ -1,0 +1,2004 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio G85 — Proteção, Estética e Valorização Automotiva | Fortaleza</title>
+<meta name="description" content="O sol e a maresia de Fortaleza estão comendo a pintura do seu carro agora. Studio G85: PPF, vitrificação cerâmica, Window Blue e lavagem técnica em ambiente climatizado. Aldeota.">
+<link rel="icon" type="image/png" href="favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   STUDIO G85 — SISTEMA DE DESIGN
+   ============================================================ */
+:root{
+  --ink:#040404;
+  --ink-2:#0a0a0b;
+  --ink-3:#111113;
+  --smoke:#1a1a1d;
+  --stage:#0e0e10;
+  --line:rgba(255,255,255,.08);
+  --line-2:rgba(255,255,255,.14);
+  --paper:#f4f2ee;
+  --paper-dim:#a9a49c;
+  --paper-mute:#726d66;
+  --gold:#f2c230;
+  --gold-deep:#c99a12;
+  --blood:#c8102e;
+
+  --f-display:'Montserrat',system-ui,sans-serif;
+  --f-body:'Inter',system-ui,sans-serif;
+  --f-script:'Dancing Script',cursive;
+
+  --shell:min(1240px,92vw);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --ease-io:cubic-bezier(.65,0,.35,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--f-body);
+  font-size:16px;
+  line-height:1.65;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--gold);color:#000}
+
+/* scrollbar */
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:#000}
+::-webkit-scrollbar-thumb{background:#26262a;border-radius:99px;border:2px solid #000}
+::-webkit-scrollbar-thumb:hover{background:var(--gold-deep)}
+
+/* ---------- GRÃO + VINHETA GLOBAL ---------- */
+.grain{
+  position:fixed;inset:-150%;z-index:9998;pointer-events:none;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grainShift 8s steps(10) infinite;
+}
+@keyframes grainShift{
+  0%{transform:translate(0,0)}10%{transform:translate(-3%,-4%)}20%{transform:translate(-8%,2%)}
+  30%{transform:translate(4%,-6%)}40%{transform:translate(-3%,7%)}50%{transform:translate(-8%,3%)}
+  60%{transform:translate(6%,0)}70%{transform:translate(0,6%)}80%{transform:translate(3%,10%)}
+  90%{transform:translate(-6%,4%)}100%{transform:translate(4%,-2%)}
+}
+.vignette{position:fixed;inset:0;z-index:9997;pointer-events:none;
+  background:radial-gradient(125% 95% at 50% 45%,transparent 55%,rgba(0,0,0,.26) 100%)}
+
+/* ---------- BARRA DE PROGRESSO ---------- */
+.progress{position:fixed;top:0;left:0;height:2px;width:100%;z-index:9999;
+  background:linear-gradient(90deg,var(--gold),#fff);transform:scaleX(0);transform-origin:0 50%;
+  box-shadow:0 0 18px rgba(242,194,48,.7)}
+
+/* ---------- LUZ QUE SEGUE O MOUSE ---------- */
+.spotlight{position:fixed;width:620px;height:620px;border-radius:50%;z-index:1;pointer-events:none;
+  background:radial-gradient(circle,rgba(242,194,48,.09),transparent 65%);
+  filter:blur(28px);transform:translate3d(-50%,-50%,0);opacity:0;transition:opacity .6s}
+body.pointer-fine .spotlight{opacity:1}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px calc((100vw - var(--shell))/2);
+  transition:padding .5s var(--ease),background .5s var(--ease),border-color .5s;
+  border-bottom:1px solid transparent;
+}
+.nav.stuck{
+  padding:12px calc((100vw - var(--shell))/2);
+  background:rgba(4,4,4,.78);
+  backdrop-filter:blur(22px) saturate(160%);
+  -webkit-backdrop-filter:blur(22px) saturate(160%);
+  border-bottom-color:var(--line);
+}
+.nav__logo{height:42px;width:auto;transition:height .5s var(--ease);filter:drop-shadow(0 2px 14px rgba(0,0,0,.6))}
+.nav.stuck .nav__logo{height:32px}
+.nav__links{display:flex;gap:34px;align-items:center;
+  position:absolute;left:50%;transform:translateX(-50%)}
+.nav__links a{
+  font-family:var(--f-display);font-size:11.5px;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--paper-dim);position:relative;padding:6px 0;transition:color .35s;
+}
+.nav__links a::after{
+  content:'';position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--gold);
+  transform:scaleX(0);transform-origin:100% 50%;transition:transform .5s var(--ease);
+}
+.nav__links a:hover{color:var(--paper)}
+.nav__links a:hover::after{transform:scaleX(1);transform-origin:0 50%}
+
+.btn{
+  display:inline-flex;align-items:center;gap:10px;position:relative;overflow:hidden;
+  font-family:var(--f-display);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:14px 26px;border-radius:2px;border:1px solid var(--gold);color:#000;background:var(--gold);
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease),color .4s;
+  box-shadow:0 8px 30px -12px rgba(242,194,48,.8);
+  white-space:nowrap;cursor:pointer;
+}
+.btn::before{content:'';position:absolute;inset:0;background:#fff;transform:translateY(101%);transition:transform .5s var(--ease);z-index:-1}
+.btn:hover{transform:translateY(-3px);box-shadow:0 16px 40px -14px rgba(242,194,48,.9)}
+.btn:hover::before{transform:translateY(0)}
+.btn--ghost{background:transparent;color:var(--paper);border-color:var(--line-2);box-shadow:none}
+.btn--ghost::before{background:var(--paper)}
+.btn--ghost:hover{color:#000;border-color:var(--paper)}
+.btn span{position:relative;z-index:2}
+
+/* botão pílula (nav) — no espírito da referência */
+.btn--pill{
+  background:transparent;color:var(--paper);border:1px solid rgba(255,255,255,.26);
+  border-radius:99px;padding:12px 26px;box-shadow:none;
+  font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:none;
+}
+.btn--pill::before{background:var(--paper)}
+.btn--pill:hover{color:#000;border-color:var(--paper);transform:translateY(-2px);box-shadow:none}
+
+.nav__burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px}
+.nav__burger i{display:block;width:24px;height:2px;background:var(--paper);transition:transform .4s var(--ease),opacity .3s}
+.nav__burger.open i:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav__burger.open i:nth-child(2){opacity:0}
+.nav__burger.open i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+
+/* ============================================================
+   HERO
+   ============================================================ */
+/* palco: moldura arredondada sobre fundo grafite */
+.hero{background:#020203;min-height:min(100svh,var(--heroH,100svh));display:flex}
+.hero__stage{
+  position:relative;flex:1;display:flex;align-items:center;
+  overflow:hidden;isolation:isolate;
+  padding:clamp(112px,14vh,160px) 0 clamp(88px,11vh,120px);
+  background:#020203;
+}
+
+/* foto de fundo: carro à direita, parede vazia à esquerda para o texto */
+.hero__bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero__bgInner{position:absolute;inset:0}
+.hero__bg img,.hero__bg video{
+  width:100%;height:100%;object-fit:cover;object-position:center;
+  filter:contrast(1.03) brightness(1.01) saturate(1.05);
+  display:block;
+}
+/* o vídeo entra por cima do poster com um fade quando começa a tocar */
+.hero__bg video{position:absolute;inset:0;opacity:0;transition:opacity 1.1s var(--ease)}
+.hero__bg video.ready{opacity:1}
+/* scrim direcional: apaga a esquerda, preserva o carro à direita */
+.hero__stage::after{
+  content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(90deg,rgba(2,2,3,.9) 0%,rgba(2,2,3,.66) 22%,rgba(2,2,3,.26) 42%,transparent 58%),
+    linear-gradient(180deg,rgba(2,2,3,.52) 0%,transparent 24%),
+    linear-gradient(0deg,rgba(2,2,3,.6) 0%,transparent 26%);
+}
+@media(max-width:900px){
+  .hero__bg img,.hero__bg video{object-position:70% 60%}
+  .hero__stage::after{
+    background:
+      linear-gradient(180deg,rgba(2,2,3,.86) 0%,rgba(2,2,3,.6) 40%,rgba(2,2,3,.2) 60%,rgba(2,2,3,.82) 100%);
+  }
+}
+
+/* conteúdo alinhado à esquerda, na mesma coluna da logo do nav */
+.hero__content{position:relative;z-index:3;width:var(--shell);margin:0 auto;text-align:left}
+.hero__content>*{max-width:min(660px,92%)}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:12px;margin-bottom:22px;
+  font-family:var(--f-display);font-size:11px;font-weight:700;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--gold);
+}
+.eyebrow::before{content:'';width:44px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+/* variação da hero: neutra e centralizada */
+.hero .eyebrow{margin-bottom:26px;font-size:10.5px;font-weight:600;letter-spacing:.32em;color:var(--paper-mute)}
+.hero .eyebrow::before{width:34px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4))}
+.hero .eyebrow::after{content:'';width:34px;height:1px;background:linear-gradient(270deg,transparent,rgba(255,255,255,.4))}
+
+.hero__logo{
+  height:clamp(58px,8.4vw,104px);width:auto;margin-bottom:clamp(20px,2.6vw,32px);
+  filter:
+    drop-shadow(0 0 16px rgba(0,0,0,.55))
+    drop-shadow(0 0 46px rgba(0,0,0,.4))
+    drop-shadow(0 8px 26px rgba(0,0,0,.3));
+}
+
+/* >>> EXPERIMENTO: logo à direita do texto (apenas desktop) <<< */
+@media(min-width:761px){
+  .hero__content{display:flex;align-items:center;gap:clamp(32px,5vw,76px)}
+  .hero__content>*{max-width:none}
+  .hero__txt{flex:1 1 0;min-width:0;max-width:660px}
+  .hero__logo{
+    order:2;flex:0 0 clamp(285px,31%,440px);
+    width:clamp(285px,31%,440px);height:auto;margin-bottom:0;
+    transform:translateX(clamp(0px,2vw,32px));
+  }
+}
+/* >>> FIM DO EXPERIMENTO <<< */
+
+h1.hero__title{
+  font-family:var(--f-display);font-weight:300;
+  font-size:clamp(2.05rem,4.9vw,3.75rem);line-height:1.12;letter-spacing:-.032em;
+  color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.7);
+  text-wrap:balance;
+}
+/* segunda linha manuscrita, como no site.
+   display:block + line-height folgado para os descendentes (q, ç, p)
+   caberem dentro da máscara de reveal (.lines span{overflow:hidden}) */
+h1.hero__title em{
+  font-family:var(--f-script);font-style:italic;font-weight:600;color:var(--gold);
+  font-size:1.06em;line-height:1.34;display:block;
+  margin-top:.16em;padding-top:.04em;
+  text-wrap:balance;
+}
+
+.hero__sub{
+  margin:24px 0 0;max-width:46ch;font-weight:300;line-height:1.7;
+  font-size:clamp(1rem,1.35vw,1.12rem);color:#a29d94;
+  text-shadow:0 2px 22px rgba(0,0,0,.8);
+  text-wrap:pretty;
+}
+.hero__sub b{color:#d5d1c9;font-weight:400}
+
+.hero__cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;align-items:center}
+.hero__cta .btn{padding:15px 30px}
+
+.link-cta{
+  display:inline-flex;align-items:center;gap:10px;margin-top:38px;position:relative;
+  font-family:var(--f-display);font-size:14px;font-weight:500;letter-spacing:.01em;color:#fff;
+}
+.link-cta svg{width:13px;height:13px;transition:transform .5s var(--ease)}
+.link-cta::after{content:'';position:absolute;left:0;bottom:-7px;height:1px;width:100%;
+  background:rgba(255,255,255,.45);transform:scaleX(0);transform-origin:100% 50%;
+  transition:transform .6s var(--ease)}
+.link-cta:hover::after{transform:scaleX(1);transform-origin:0 50%}
+.link-cta:hover svg{transform:translate(4px,-4px)}
+
+.scrollhint{position:absolute;bottom:22px;left:calc((100% - var(--shell))/2);z-index:4;
+  display:flex;flex-direction:column;align-items:flex-start;gap:10px;
+  font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:#615c55}
+.scrollhint i{display:block;width:1px;height:44px;background:linear-gradient(180deg,rgba(255,255,255,.5),transparent);
+  animation:drop 2.2s var(--ease-io) infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:0 0}45%{transform:scaleY(1);transform-origin:0 0}
+  55%{transform:scaleY(1);transform-origin:0 100%}100%{transform:scaleY(0);transform-origin:0 100%}}
+
+/* ============================================================
+   MARQUEE / FAIXA QUADRICULADA
+   ============================================================ */
+.checker{height:16px;width:100%;
+  background:
+    repeating-conic-gradient(#fff 0 25%,#0a0a0a 0 50%) 0 0/16px 16px;
+  opacity:.9}
+.marquee{background:var(--gold);color:#000;overflow:hidden;padding:13px 0;position:relative;z-index:5}
+.marquee__track{display:flex;gap:0;width:max-content;animation:slide 32s linear infinite}
+.marquee:hover .marquee__track{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+.marquee span{
+  font-family:var(--f-display);font-weight:800;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;
+  padding:0 26px;display:inline-flex;align-items:center;gap:26px;white-space:nowrap;
+}
+.marquee span::after{content:'';width:6px;height:6px;background:#000;transform:rotate(45deg)}
+
+/* ============================================================
+   ESTRUTURA DE SEÇÃO
+   ============================================================ */
+section{position:relative}
+.shell{width:var(--shell);margin:0 auto}
+.pad{padding:clamp(90px,13vh,160px) 0}
+.sechead{margin-bottom:clamp(46px,6vw,80px);max-width:72ch}
+.sechead h2{
+  font-family:var(--f-display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(2rem,5.2vw,4.2rem);line-height:1;letter-spacing:-.035em;margin-top:16px;
+}
+.sechead h2 em{font-style:normal;color:var(--gold)}
+.sechead p{margin-top:24px;color:var(--paper-dim);font-size:clamp(1rem,1.35vw,1.14rem);font-weight:300;max-width:62ch}
+.sechead p b{color:var(--paper);font-weight:600}
+
+/* número gigante de fundo */
+.ghostnum{
+  position:absolute;font-family:var(--f-display);font-weight:900;font-size:clamp(14rem,34vw,30rem);
+  line-height:.75;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.045);
+  pointer-events:none;user-select:none;z-index:0;
+}
+
+/* ============================================================
+   REVEALS
+   ============================================================ */
+.r{opacity:0;transform:translateY(46px);transition:opacity 1s var(--ease),transform 1.1s var(--ease)}
+.r.in{opacity:1;transform:none}
+.r-l{opacity:0;transform:translateX(-56px)}
+.r-l.in{opacity:1;transform:none;transition:opacity 1s var(--ease),transform 1.1s var(--ease)}
+.r-r{opacity:0;transform:translateX(56px)}
+.r-r.in{opacity:1;transform:none;transition:opacity 1s var(--ease),transform 1.1s var(--ease)}
+.r-s{opacity:0;transform:scale(1.09)}
+.r-s.in{opacity:1;transform:none;transition:opacity 1.2s var(--ease),transform 1.5s var(--ease)}
+/* revelação por linha de texto */
+.lines span{display:block;overflow:hidden}
+.lines span i{display:block;font-style:inherit;transform:translateY(105%);transition:transform 1.1s var(--ease)}
+.lines.in span i{transform:none}
+.lines.in span:nth-child(2) i{transition-delay:.09s}
+.lines.in span:nth-child(3) i{transition-delay:.18s}
+.lines.in span:nth-child(4) i{transition-delay:.27s}
+
+/* ============================================================
+   MANIFESTO (SOBRE)
+   ============================================================ */
+#sobre{background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%)}
+.manifesto{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(40px,6vw,86px);align-items:center}
+@media(max-width:900px){.manifesto{grid-template-columns:1fr}}
+.manifesto__txt p{color:var(--paper-dim);font-weight:300;margin-top:22px;font-size:1.03rem;line-height:1.85}
+.manifesto__txt p b{color:var(--paper);font-weight:600}
+.manifesto__txt p mark{background:none;color:var(--gold);font-weight:600}
+
+.manifesto__media{position:relative}
+.manifesto__media img{border-radius:3px;filter:grayscale(.15) contrast(1.06);will-change:transform}
+.frame{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:3px}
+.frame::after{content:'';position:absolute;inset:0;background:linear-gradient(200deg,rgba(242,194,48,.14),transparent 55%);mix-blend-mode:overlay}
+.badge-float{
+  position:absolute;right:-14px;bottom:-24px;background:var(--ink-3);border:1px solid var(--line-2);
+  padding:20px 24px;border-radius:3px;backdrop-filter:blur(10px);
+  box-shadow:0 30px 70px -30px #000;max-width:260px;
+}
+.badge-float strong{display:block;font-family:var(--f-display);font-size:2.2rem;font-weight:800;color:var(--gold);line-height:1}
+.badge-float span{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--paper-dim);display:block;margin-top:6px}
+
+/* valores */
+.values{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:clamp(60px,8vw,100px);background:var(--line)}
+@media(max-width:900px){.values{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.values{grid-template-columns:1fr}}
+.value{background:var(--ink-2);padding:36px 28px;position:relative;transition:background .6s var(--ease)}
+.value:hover{background:var(--ink-3)}
+.value::before{content:'';position:absolute;top:0;left:0;height:2px;width:100%;background:var(--gold);
+  transform:scaleX(0);transform-origin:0 50%;transition:transform .7s var(--ease)}
+.value:hover::before{transform:scaleX(1)}
+.value h4{font-family:var(--f-display);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.value p{font-size:14px;color:var(--paper-mute);font-weight:300;line-height:1.7}
+.value::after{content:'';display:block;width:26px;height:2px;background:var(--gold);
+  margin-bottom:20px;opacity:.75;transition:width .6s var(--ease)}
+.value:hover::after{width:44px;opacity:1}
+
+/* ============================================================
+   SERVIÇOS
+   ============================================================ */
+#servicos{background:var(--ink-2);overflow:hidden}
+.svc{border-top:1px solid var(--line);position:relative;z-index:2}
+.svc:last-of-type{border-bottom:1px solid var(--line)}
+.svc__head{
+  display:grid;grid-template-columns:1fr auto;gap:clamp(18px,3vw,44px);align-items:center;
+  padding:clamp(26px,3.4vw,40px) 0;cursor:pointer;transition:padding-left .6s var(--ease);
+}
+.svc:hover .svc__head{padding-left:14px}
+.svc__ttl{font-family:var(--f-display);font-weight:800;text-transform:uppercase;letter-spacing:-.02em;
+  font-size:clamp(1.35rem,3.5vw,2.7rem);line-height:1.05;transition:color .5s var(--ease)}
+.svc:hover .svc__ttl{color:var(--gold)}
+.svc__tag{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--paper-mute);
+  border:1px solid var(--line-2);padding:7px 14px;border-radius:99px;white-space:nowrap}
+.svc__body{max-height:0;overflow:hidden;transition:max-height .9s var(--ease)}
+.svc.open .svc__body{max-height:900px}
+.svc.open .svc__ttl{color:var(--gold)}
+.svc__inner{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,3vw,44px);padding-bottom:44px}
+@media(max-width:820px){
+  .svc__inner{grid-template-columns:1fr;padding-bottom:34px}
+  .svc__tag{display:none}
+}
+.svc__copy p{color:var(--paper-dim);font-weight:300;line-height:1.85}
+.svc__copy p+p{margin-top:16px}
+.svc__copy strong{color:var(--paper)}
+.svc__copy .warn{margin-top:20px;border-left:2px solid var(--blood);padding:6px 0 6px 16px;font-size:13.5px;color:var(--paper-mute)}
+.svc__list{list-style:none;display:flex;flex-direction:column;gap:13px}
+.svc__list li{display:flex;gap:13px;font-size:14.5px;color:var(--paper-dim);font-weight:300;line-height:1.55}
+.svc__list li::before{content:'';flex:0 0 auto;width:7px;height:7px;background:var(--gold);transform:rotate(45deg);margin-top:8px}
+
+/* ============================================================
+   PROCESSO — trilho horizontal com parallax
+   ============================================================ */
+#processo{background:linear-gradient(180deg,var(--ink-2),var(--ink))}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+@media(max-width:900px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.steps{grid-template-columns:1fr}}
+.step{background:var(--ink);padding:clamp(28px,3vw,40px);position:relative;overflow:hidden}
+.step__n{font-family:var(--f-display);font-size:4.4rem;font-weight:900;line-height:.8;color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.16);transition:-webkit-text-stroke-color .6s,color .6s}
+.step:hover .step__n{color:rgba(242,194,48,.1);-webkit-text-stroke-color:rgba(242,194,48,.5)}
+.step h4{font-family:var(--f-display);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin:22px 0 12px}
+.step p{font-size:14px;color:var(--paper-mute);font-weight:300;line-height:1.7}
+
+/* ============================================================
+   GALERIA — HALL DA FAMA
+   ============================================================ */
+#galeria{background:var(--ink);overflow:hidden}
+/* filtros por categoria */
+.galfilter{display:flex;flex-wrap:wrap;gap:10px;margin:-18px 0 clamp(30px,4vw,46px)}
+.galfilter button{
+  font-family:var(--f-display);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--paper-mute);background:none;cursor:pointer;border:1px solid var(--line-2);
+  border-radius:99px;padding:10px 20px;transition:color .4s,background .45s var(--ease),border-color .4s}
+.galfilter button:hover{color:var(--paper)}
+.galfilter button.on{background:var(--gold);border-color:var(--gold);color:#000}
+.galfilter button i{font-style:normal;margin-left:7px;opacity:.55;font-size:10px}
+
+.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:1000px){.gal{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:620px){.gal{grid-template-columns:repeat(2,1fr)}}
+.gal figure{position:relative;overflow:hidden;border-radius:3px;background:var(--ink-3);border:1px solid var(--line);
+  aspect-ratio:1;cursor:zoom-in}
+.gal figure.hide{display:none}
+.gal figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease),filter 1s var(--ease);
+  filter:grayscale(.55) contrast(1.08) brightness(.82);will-change:transform}
+.gal figure:hover img{transform:scale(1.07);filter:grayscale(0) contrast(1.05) brightness(.95)}
+.gal figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:22px;z-index:2;
+  background:linear-gradient(0deg,rgba(0,0,0,.92),transparent);
+  transform:translateY(18px);opacity:0;transition:transform .7s var(--ease),opacity .6s var(--ease);
+}
+.gal figure:hover figcaption{transform:none;opacity:1}
+.gal figcaption b{display:block;font-family:var(--f-display);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.gal figcaption span{font-size:11.5px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase}
+/* lightbox das fotos */
+.glb{position:fixed;inset:0;z-index:9500;display:none;place-items:center;padding:24px;
+  background:rgba(3,3,4,.95);backdrop-filter:blur(14px);opacity:0;transition:opacity .45s var(--ease)}
+.glb.on{display:grid}
+.glb.vis{opacity:1}
+.glb__box{position:relative;max-width:min(1100px,94vw);transform:scale(.95);transition:transform .55s var(--ease)}
+.glb.vis .glb__box{transform:none}
+.glb__box img{width:100%;max-height:80vh;object-fit:contain;border-radius:5px;display:block;
+  box-shadow:0 40px 110px -40px #000}
+.glb__box figcaption{margin-top:16px;text-align:center}
+.glb__box figcaption b{display:block;font-family:var(--f-display);font-size:14px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.08em}
+.glb__box figcaption span{display:block;margin-top:5px;font-size:12px;color:var(--gold);letter-spacing:.08em}
+.glb__nav{position:fixed;top:50%;transform:translateY(-50%);z-index:3;width:52px;height:52px;border-radius:50%;
+  background:rgba(255,255,255,.07);border:1px solid var(--line-2);color:var(--paper);cursor:pointer;
+  display:grid;place-items:center;transition:background .4s,color .4s}
+.glb__nav:hover{background:var(--gold);color:#000;border-color:var(--gold)}
+.glb__nav svg{width:19px;height:19px;stroke:currentColor;stroke-width:1.7;fill:none}
+.glb__nav.prev{left:18px}
+.glb__nav.next{right:18px}
+@media(max-width:620px){
+  .glb__nav{width:44px;height:44px;top:auto;bottom:20px;transform:none}
+  .glb__nav.prev{left:24%}
+  .glb__nav.next{right:24%}
+}
+
+/* ============================================================
+   VÍDEOS — resultados em movimento
+   ============================================================ */
+#videos{background:linear-gradient(180deg,var(--ink),var(--ink-2));overflow:hidden}
+.vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.vgrid{grid-template-columns:repeat(2,1fr);gap:12px}}
+
+.vcard{
+  position:relative;border:1px solid var(--line);border-radius:4px;overflow:hidden;
+  background:var(--ink-3);aspect-ratio:9/16;cursor:pointer;
+  padding:0;margin:0;font:inherit;color:inherit;text-align:left;
+  -webkit-appearance:none;appearance:none;display:block;width:100%;
+  transition:border-color .5s var(--ease),transform .7s var(--ease);
+}
+.vcard:hover{border-color:var(--line-2);transform:translateY(-5px)}
+.vcard video{width:100%;height:100%;object-fit:cover;display:block;
+  filter:brightness(.86) saturate(1.05);transition:filter .7s var(--ease),transform 1.2s var(--ease)}
+.vcard:hover video{filter:brightness(1) saturate(1.1);transform:scale(1.04)}
+.vcard__scrim{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(0deg,rgba(2,2,3,.92) 0%,rgba(2,2,3,.15) 42%,transparent 68%)}
+.vcard__meta{position:absolute;left:0;right:0;bottom:0;padding:20px 18px;z-index:2;pointer-events:none}
+.vcard__meta b{display:block;font-family:var(--f-display);font-size:13.5px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;line-height:1.3}
+.vcard__meta span{display:block;margin-top:6px;font-size:11.5px;color:var(--gold);
+  letter-spacing:.1em;line-height:1.45}
+/* botão play */
+.vcard__play{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.9);z-index:3;
+  width:58px;height:58px;border-radius:50%;display:grid;place-items:center;pointer-events:none;
+  background:rgba(4,4,4,.5);border:1px solid rgba(255,255,255,.34);backdrop-filter:blur(8px);
+  opacity:.9;transition:transform .6s var(--ease),background .5s,opacity .5s;
+}
+.vcard:hover .vcard__play{transform:translate(-50%,-50%) scale(1);background:var(--gold);border-color:var(--gold);opacity:1}
+.vcard__play svg{width:17px;height:17px;fill:#fff;margin-left:3px;transition:fill .5s}
+.vcard:hover .vcard__play svg{fill:#000}
+
+.vcta{text-align:center;margin-top:clamp(46px,6vw,70px)}
+.vcta p{color:var(--paper-dim);font-size:clamp(1rem,1.5vw,1.2rem);font-weight:300;margin-bottom:26px}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:9500;display:none;place-items:center;padding:20px;
+  background:rgba(3,3,4,.94);backdrop-filter:blur(14px);opacity:0;transition:opacity .45s var(--ease)}
+.lb.on{display:grid}
+.lb.vis{opacity:1}
+.lb__box{position:relative;width:min(440px,100%);max-height:88vh;transform:scale(.94);
+  transition:transform .55s var(--ease)}
+.lb.vis .lb__box{transform:none}
+.lb__box video{width:100%;max-height:88vh;border-radius:5px;display:block;background:#000;
+  box-shadow:0 40px 110px -40px #000}
+.lb__cap{margin-top:16px;text-align:center}
+.lb__cap b{display:block;font-family:var(--f-display);font-size:14px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.08em}
+.lb__cap span{display:block;margin-top:5px;font-size:12px;color:var(--gold);letter-spacing:.08em}
+.lb__x{position:fixed;top:18px;right:18px;z-index:2;width:46px;height:46px;border-radius:50%;
+  background:rgba(255,255,255,.07);border:1px solid var(--line-2);color:var(--paper);
+  cursor:pointer;display:grid;place-items:center;transition:background .4s,transform .4s var(--ease)}
+.lb__x:hover{background:var(--gold);color:#000;transform:rotate(90deg)}
+.lb__x svg{width:17px;height:17px;stroke:currentColor;stroke-width:1.8;fill:none}
+
+/* vídeo vertical de apresentação (seção Sobre) */
+.vpres{position:relative;max-width:340px;margin-inline:auto}
+.vpres::before{content:'';position:absolute;inset:-18px;border-radius:22px;z-index:0;
+  background:rgba(242,194,48,.11);filter:blur(38px)}
+.vpres video{position:relative;z-index:1;width:100%;aspect-ratio:9/16;object-fit:cover;
+  border-radius:5px;border:1px solid var(--line-2);display:block;
+  box-shadow:0 40px 90px -44px #000}
+
+/* vídeo de fundo do CTA final */
+.vbg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;
+  background:url(suv-creta.jpg) center/cover no-repeat}
+.vbg video{width:100%;height:100%;object-fit:cover;filter:grayscale(.15) brightness(.78) contrast(1.06);
+  opacity:0;transition:opacity .9s var(--ease)}
+.vbg video.ready{opacity:1}
+.vbg::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,var(--ink) 0%,rgba(4,4,4,.52) 24%,rgba(4,4,4,.58) 74%,var(--ink) 100%)}
+
+/* ============================================================
+   PARALLAX QUOTE BREAK
+   ============================================================ */
+.break{position:relative;min-height:82vh;display:grid;place-items:center;overflow:hidden;isolation:isolate}
+.break__bg{position:absolute;inset:-18% 0;z-index:-2;will-change:transform}
+.break__bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(.85) contrast(1.25) brightness(.32)}
+.break::after{content:'';position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(80% 60% at 50% 50%,rgba(4,4,4,.45),var(--ink) 92%)}
+.break__txt{text-align:center;width:var(--shell)}
+.break__txt q{
+  display:block;quotes:none;font-family:var(--f-display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(1.7rem,5.6vw,4.4rem);line-height:1.02;letter-spacing:-.035em;
+}
+.break__txt q em{font-style:normal;color:var(--gold)}
+.break__txt cite{display:block;margin-top:28px;font-style:normal;font-size:11.5px;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--paper-mute)}
+
+/* ============================================================
+   PARA QUEM É
+   ============================================================ */
+#perfil{background:var(--ink-2)}
+.perfil{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+@media(max-width:820px){.perfil{grid-template-columns:1fr}}
+.perfil>div{background:var(--ink-2);padding:clamp(30px,4vw,50px)}
+.perfil h4{font-family:var(--f-display);font-size:12px;letter-spacing:.24em;text-transform:uppercase;margin-bottom:28px}
+.perfil .yes h4{color:var(--gold)}
+.perfil .no h4{color:var(--blood)}
+.perfil ul{list-style:none;display:flex;flex-direction:column;gap:16px}
+.perfil li{display:flex;gap:14px;font-weight:300;color:var(--paper-dim);line-height:1.6}
+.perfil li::before{font-family:var(--f-display);font-weight:800;font-size:13px;flex:0 0 18px;margin-top:2px}
+.perfil .yes li::before{content:'✓';color:var(--gold)}
+.perfil .no li::before{content:'✕';color:var(--blood)}
+.perfil .no li{color:var(--paper-mute)}
+
+/* ============================================================
+   AVALIAÇÕES
+   ============================================================ */
+#avaliacoes{background:var(--ink);overflow:hidden}
+.google{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:26px}
+.google__score{font-family:var(--f-display);font-size:3.6rem;font-weight:800;line-height:1;color:var(--gold)}
+.google__meta{font-size:12.5px;color:var(--paper-mute);letter-spacing:.06em}
+.stars{color:var(--gold);letter-spacing:.22em;font-size:15px}
+
+.rail{display:flex;gap:20px;overflow-x:auto;padding:6px 0 26px;scroll-snap-type:x mandatory;
+  scrollbar-width:thin;margin-top:52px}
+.rail::-webkit-scrollbar{height:4px}
+.rail::-webkit-scrollbar-thumb{background:var(--gold-deep)}
+.card{
+  flex:0 0 min(430px,84vw);scroll-snap-align:start;background:var(--ink-2);
+  border:1px solid var(--line);border-radius:3px;padding:32px;display:flex;flex-direction:column;gap:18px;
+  transition:transform .7s var(--ease),border-color .5s,background .5s;
+  transform-style:preserve-3d;
+}
+.card:hover{border-color:var(--line-2);background:var(--ink-3)}
+.card__q{font-size:15px;color:var(--paper-dim);font-weight:300;line-height:1.78;flex:1}
+.card__q::before{content:'“';font-family:var(--f-display);font-size:2.6rem;color:var(--gold);
+  line-height:0;position:relative;top:14px;margin-right:6px}
+.card__who{display:flex;align-items:center;gap:14px;padding-top:18px;border-top:1px solid var(--line)}
+.card__av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;
+  background:linear-gradient(140deg,var(--gold),var(--gold-deep));color:#000;
+  font-family:var(--f-display);font-weight:800;font-size:14px}
+.card__who b{display:block;font-size:14px;font-weight:600}
+.card__who span{font-size:11.5px;color:var(--paper-mute)}
+
+/* ============================================================
+   ESTRUTURA / AMBIENTE
+   ============================================================ */
+#estrutura{background:linear-gradient(180deg,var(--ink),var(--ink-2))}
+.struct{display:grid;grid-template-columns:1fr 1fr;gap:clamp(34px,5vw,70px);align-items:center}
+@media(max-width:900px){.struct{grid-template-columns:1fr}}
+.spec{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:36px}
+@media(max-width:480px){.spec{grid-template-columns:1fr}}
+.spec div{background:var(--ink-2);padding:24px}
+.spec b{display:block;font-family:var(--f-display);font-size:1.6rem;font-weight:800;color:var(--gold);line-height:1}
+.spec span{display:block;margin-top:8px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--paper-mute)}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+#faq{background:var(--ink-2)}
+.faq{border-top:1px solid var(--line)}
+.faq__i{border-bottom:1px solid var(--line)}
+.faq__q{width:100%;background:none;border:0;color:inherit;cursor:pointer;text-align:left;
+  display:flex;justify-content:space-between;align-items:flex-start;gap:26px;padding:26px 0;
+  font-family:var(--f-display);font-size:clamp(1rem,1.9vw,1.3rem);font-weight:600;letter-spacing:-.01em;
+  transition:color .4s}
+.faq__q:hover{color:var(--gold)}
+.faq__q i{flex:0 0 auto;width:22px;height:22px;position:relative;margin-top:5px}
+.faq__q i::before,.faq__q i::after{content:'';position:absolute;background:var(--gold);transition:transform .5s var(--ease)}
+.faq__q i::before{left:0;top:10px;width:22px;height:2px}
+.faq__q i::after{left:10px;top:0;width:2px;height:22px}
+.faq__i.open .faq__q i::after{transform:scaleY(0)}
+.faq__i.open .faq__q{color:var(--gold)}
+.faq__a{max-height:0;overflow:hidden;transition:max-height .7s var(--ease)}
+.faq__i.open .faq__a{max-height:420px}
+.faq__a p{padding:0 0 28px;max-width:76ch;color:var(--paper-dim);font-weight:300;line-height:1.85}
+
+/* ============================================================
+   CTA FINAL / CONTATO
+   ============================================================ */
+#contato{position:relative;overflow:hidden;background:var(--ink)}
+#contato .ghostnum{left:50%;top:6%;transform:translateX(-50%)}
+/* o vídeo de fundo (.vbg) é posicionado; sem isto o conteúdo em fluxo
+   (.info) fica pintado atrás do overlay escuro */
+#contato>.shell{position:relative;z-index:2}
+.finale{text-align:center;position:relative;z-index:2;padding:clamp(40px,10vh,120px) 0 clamp(16px,3vh,40px)}
+.finale h2{
+  font-family:var(--f-display);font-weight:900;text-transform:uppercase;
+  font-size:clamp(2.2rem,8vw,7rem);line-height:.9;letter-spacing:-.045em;
+}
+.finale h2 em{font-style:normal;
+  background:linear-gradient(100deg,#fff,var(--gold) 45%,#fff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.finale p{margin:28px auto 0;max-width:60ch;color:var(--paper-dim);font-weight:300;font-size:1.06rem;line-height:1.8}
+.finale .btn{margin-top:40px;padding:20px 44px;font-size:13px}
+
+/* cartões em vidro líquido sobre o vídeo de fundo */
+.info{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;background:none;
+  border:0;margin-top:clamp(60px,8vw,100px)}
+@media(max-width:820px){.info{grid-template-columns:1fr}}
+.info a,.info div{
+  display:block;padding:34px;border-radius:10px;
+  background:linear-gradient(155deg,rgba(255,255,255,.045),rgba(255,255,255,.012));
+  backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);
+  border:1px solid rgba(255,255,255,.075);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 28px 60px -38px rgba(0,0,0,.9);
+  transition:background .5s var(--ease),border-color .5s var(--ease),transform .5s var(--ease)}
+.info a:hover{
+  background:linear-gradient(155deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
+  border-color:rgba(242,194,48,.3);transform:translateY(-3px)}
+/* navegadores sem backdrop-filter: mantém o cartão legível */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .info a,.info div{background:rgba(14,14,14,.6)}
+  .info a:hover{background:rgba(22,22,22,.7)}
+}
+.info b{display:block;font-family:var(--f-display);font-size:10.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.info p{font-size:15px;color:var(--paper-dim);font-weight:300;line-height:1.7}
+.info p strong{color:var(--paper);font-weight:600;display:block;font-size:16px;margin-bottom:2px}
+
+/* mapa embutido, tratado para o tema escuro */
+.mapwrap{position:relative;margin-top:14px;border:1px solid var(--line);border-radius:3px;
+  overflow:hidden;background:var(--ink-3);aspect-ratio:16/5;height:auto}
+.mapwrap iframe{width:100%;height:100%;border:0;display:block;
+  filter:saturate(1.05) contrast(1.02)}
+.mapwrap__cta{position:absolute;right:16px;bottom:16px;z-index:2;
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(4,4,4,.86);backdrop-filter:blur(12px);border:1px solid var(--line-2);
+  padding:12px 20px;border-radius:99px;
+  font-family:var(--f-display);font-size:11.5px;font-weight:600;letter-spacing:.08em;
+  transition:background .4s var(--ease),border-color .4s,transform .4s var(--ease)}
+.mapwrap__cta svg{width:12px;height:12px;transition:transform .5s var(--ease)}
+.mapwrap__cta:hover{background:var(--gold);color:#000;border-color:var(--gold);transform:translateY(-2px)}
+.mapwrap__cta:hover svg{transform:translate(3px,-3px)}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
+.foot img{height:52px;width:auto;opacity:.9}
+.foot__nav{display:flex;gap:26px;flex-wrap:wrap}
+.foot__nav a{font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--paper-mute);transition:color .4s}
+.foot__nav a:hover{color:var(--gold)}
+.foot__legal{margin-top:36px;padding-top:26px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  font-size:11.5px;color:#4a4741;letter-spacing:.04em}
+
+/* ---------- WHATSAPP FLUTUANTE ---------- */
+.wa{position:fixed;right:20px;bottom:20px;z-index:950;display:flex;align-items:center;gap:12px;
+  background:#1f9c4b;color:#fff;padding:14px 20px;border-radius:99px;font-family:var(--f-display);
+  font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:0 16px 40px -14px rgba(31,156,75,.9);
+  transform:translateY(120px);transition:transform .7s var(--ease),box-shadow .4s}
+.wa.show{transform:none}
+.wa:hover{box-shadow:0 22px 50px -16px rgba(31,156,75,1)}
+.wa svg{width:20px;height:20px;fill:currentColor;flex:0 0 auto}
+@media(max-width:520px){.wa span{display:none}.wa{padding:16px;border-radius:50%}}
+
+/* ============================================================
+   SEÇÕES CLARAS — ritmo alternado preto / claro
+   Para testar a versão AMARELA, troque as 3 variáveis --lt-*
+   pelos valores comentados ao lado.
+   ============================================================ */
+.light{
+  --lt-bg:#f4f2ee;   /* amarelo: #f2c230 */
+  --lt-bg-2:#eceae3; /* amarelo: #eab81f */
+  --lt-bg-3:#e3e0d8; /* amarelo: #dea90f */
+
+  --ink:var(--lt-bg);
+  --ink-2:var(--lt-bg-2);
+  --ink-3:var(--lt-bg-3);
+  --smoke:var(--lt-bg-3);
+  --stage:var(--lt-bg-2);
+  --line:rgba(10,10,12,.13);
+  --line-2:rgba(10,10,12,.24);
+  --paper:#0b0b0c;
+  --paper-dim:#46433d;
+  --paper-mute:#736e66;
+  --gold:#9a6f04;
+  --gold-deep:#7c5803;
+  background:var(--ink);
+  color:var(--paper);
+}
+/* o dourado sólido continua vibrante nos botões e chips */
+.light .btn{background:#f2c230;border-color:#f2c230;color:#0b0b0c;
+  box-shadow:0 8px 30px -14px rgba(180,140,20,.7)}
+.light .btn::before{background:#0b0b0c}
+.light .btn:hover{color:#f4f2ee;box-shadow:0 16px 40px -16px rgba(180,140,20,.8)}
+.light .btn--ghost{background:transparent;color:var(--paper);border-color:var(--line-2);box-shadow:none}
+.light .btn--ghost::before{background:var(--paper)}
+.light .btn--ghost:hover{color:var(--ink);border-color:var(--paper)}
+/* traços e números fantasma invertidos */
+.light .ghostnum{-webkit-text-stroke-color:rgba(10,10,12,.07)}
+.light .step__n{-webkit-text-stroke-color:rgba(10,10,12,.24)}
+.light .step:hover .step__n{color:rgba(154,111,4,.14);-webkit-text-stroke-color:rgba(154,111,4,.6)}
+.light .card__av{background:linear-gradient(140deg,#f2c230,#c99a12);color:#0b0b0c}
+.light .frame::after{background:linear-gradient(200deg,rgba(154,111,4,.14),transparent 55%);mix-blend-mode:multiply}
+.light .badge-float{box-shadow:0 26px 60px -34px rgba(0,0,0,.55)}
+.light .vpres::before{background:rgba(154,111,4,.14)}
+.light .rail::-webkit-scrollbar-thumb{background:var(--gold)}
+.light .link-cta{color:var(--paper)}
+.light .link-cta::after{background:rgba(10,10,12,.45)}
+
+/* ============================================================
+   RESPONSIVO — TABLET E CELULAR
+   ============================================================ */
+/* nenhuma seção pode empurrar a página na horizontal */
+#sobre,#perfil,#estrutura,#faq,#processo,#avaliacoes,.break{overflow:hidden}
+
+@media(max-width:1100px){
+  /* com 7 itens o menu central encosta na logo — vai para o burger antes */
+  .nav__burger{display:flex}
+  .nav__links{
+    position:fixed;inset:0;left:0;transform:none;
+    background:rgba(4,4,4,.97);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);
+    flex-direction:column;justify-content:center;gap:22px;
+    clip-path:circle(0% at calc(100% - 42px) 42px);transition:clip-path .8s var(--ease);
+  }
+  .nav__links.open{clip-path:circle(150% at calc(100% - 42px) 42px)}
+  .nav__links a{font-size:18px;letter-spacing:.1em}
+  .nav .btn--nav{display:none}
+}
+
+@media(max-width:760px){
+  :root{--shell:min(1240px,90vw)}
+  body{font-size:15.5px;-webkit-tap-highlight-color:rgba(242,194,48,.18)}
+
+  .pad{padding:clamp(64px,9vh,92px) 0}
+  .sechead{margin-bottom:38px}
+  .sechead p{margin-top:18px}
+  .ghostnum{display:none}
+
+  /* HERO — no celular tudo centralizado e a logo em destaque */
+  .hero__content{text-align:center}
+  .hero__content>*{max-width:100%;margin-left:auto;margin-right:auto}
+  .hero__txt>*{margin-left:auto;margin-right:auto}
+  .hero__sub{max-width:40ch}
+  .hero__logo{
+    height:clamp(124px,34vw,190px);
+    display:block;margin-left:auto;margin-right:auto;margin-bottom:28px;
+  }
+  .hero__sub{margin-top:20px}
+
+  /* legibilidade no celular: um halo suave atrás do texto,
+     sem borda, sem blur e sem mexer no vídeo de fundo */
+  .hero__txt{
+    padding:18px 10px 20px;
+    background:radial-gradient(78% 62% at 50% 44%,rgba(2,2,3,.5) 0%,rgba(2,2,3,.3) 46%,transparent 76%);
+  }
+  h1.hero__title{
+    font-size:clamp(2.2rem,8.4vw,2.9rem);line-height:1.14;font-weight:400;
+    color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.85),0 6px 34px rgba(0,0,0,.7);
+  }
+  h1.hero__title em{
+    text-shadow:0 2px 10px rgba(0,0,0,.9),0 6px 30px rgba(0,0,0,.75);
+  }
+  .hero__sub{
+    color:#cfcac1;font-weight:400;font-size:1.02rem;line-height:1.65;
+    text-shadow:0 2px 10px rgba(0,0,0,.9),0 4px 24px rgba(0,0,0,.75);
+  }
+  .hero__sub b{color:#fff;font-weight:600}
+
+  .hero__cta{gap:12px;margin-top:30px;flex-direction:column;align-items:stretch}
+  .hero__cta .btn{justify-content:center;width:100%}
+  .hero__cta .link-cta{justify-content:center;margin-top:6px}
+  .scrollhint{display:none}
+
+  /* faixa rolante */
+  .marquee{padding:10px 0}
+  .marquee span{font-size:10.5px;padding:0 18px;gap:18px}
+  .checker{height:12px;background-size:12px 12px}
+
+  /* sobre */
+  .manifesto{gap:36px}
+  .manifesto__txt p{font-size:.98rem}
+  .vpres{max-width:280px}
+  .badge-float{position:static;max-width:none;margin-top:20px;text-align:center;padding:18px}
+
+  /* serviços */
+  .svc__head{padding:20px 0;gap:14px}
+  .svc:hover .svc__head{padding-left:0}
+  .svc__copy p{font-size:.95rem}
+  .svc__list li{font-size:13.5px}
+
+  /* galeria e vídeos */
+  .gal{gap:10px}
+  .gal figcaption{padding:16px;transform:none;opacity:1}
+  .vgrid{gap:10px}
+  .vcard__meta{padding:14px 12px}
+  .vcard__meta b{font-size:11.5px}
+  .vcard__meta span{font-size:10px;letter-spacing:.05em}
+  .vcard__play{width:46px;height:46px}
+  .vcard__play svg{width:14px;height:14px}
+  .vcta{margin-top:34px}
+  .vcta .btn{width:100%;justify-content:center}
+  /* no celular o vídeo também roda; a foto fica por baixo como rede de segurança */
+  .vbg video{object-position:60% 50%}
+
+  /* quebra com citação */
+  .break{min-height:64vh}
+
+  /* avaliações */
+  .google{gap:14px}
+  .google__score{font-size:2.8rem}
+  .google .btn{width:100%;justify-content:center}
+  .card{padding:24px;flex:0 0 86vw}
+  .card__q{font-size:14.5px}
+
+  /* faq */
+  .faq__q{padding:20px 0;gap:16px}
+  .faq__a p{padding-bottom:22px;font-size:.95rem}
+
+  /* contato */
+  .info a,.info div{padding:26px}
+  .mapwrap{aspect-ratio:16/9;height:auto}
+  .mapwrap__cta{left:14px;right:14px;bottom:14px;justify-content:center}
+  .finale .btn{width:100%;justify-content:center;padding:18px 24px}
+
+  /* rodapé */
+  .foot{flex-direction:column;align-items:flex-start;gap:22px}
+  .foot__nav{gap:16px 20px}
+  .foot__legal{flex-direction:column;gap:10px}
+
+  /* lightbox */
+  .lb{padding:14px}
+  .lb__x{top:12px;right:12px;width:42px;height:42px}
+}
+
+@media(max-width:420px){
+  .vgrid{grid-template-columns:1fr;gap:14px}
+  .vcard{aspect-ratio:4/5}
+  .foot img{height:44px}
+}
+
+/* telas bem largas: trava a altura perto da proporção da foto (~1.74)
+   para o object-fit:cover cortar o mínimo possível */
+@media(min-width:1400px){
+  /* 100vw / 56vw = 1.786, praticamente o 1.778 (16:9) do hero.mp4:
+     o object-fit:cover quase não corta e a imagem é ampliada o mínimo possível */
+  :root{--heroH:min(100svh,56vw)}
+}
+
+/* telas baixas e deitadas: a hero não precisa de 100svh */
+@media(max-height:560px) and (orientation:landscape){
+  .hero{min-height:auto}
+  .hero__stage{padding:96px 0 60px}
+  .scrollhint{display:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .r,.r-l,.r-r,.r-s{opacity:1!important;transform:none!important}
+  .lines span i{transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="progress" id="prog" aria-hidden="true"></div>
+<div class="spotlight" id="spot" aria-hidden="true"></div>
+
+<!-- ============================ NAV ============================ -->
+<header class="nav" id="nav">
+  <a href="#topo" aria-label="Studio G85 — início">
+    <img class="nav__logo" src="logo-hero-lN6XQNPM.png" alt="Studio G85">
+  </a>
+  <nav class="nav__links" id="menu">
+    <a href="#sobre">Sobre</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#processo">Processo</a>
+    <a href="#galeria">Galeria</a>
+    <a href="#videos">Vídeos</a>
+    <a href="#avaliacoes">Avaliações</a>
+    <a href="#contato">Contato</a>
+  </nav>
+  <a class="btn btn--pill btn--nav" href="https://wa.me/558598484104?text=Ol%C3%A1,%20vim%20pelo%20site!" target="_blank" rel="noopener">
+    <span>Solicitar orçamento</span>
+  </a>
+  <button class="nav__burger" id="burger" aria-label="Abrir menu"><i></i><i></i><i></i></button>
+</header>
+
+<!-- ============================ HERO ============================ -->
+<section class="hero" id="topo">
+  <div class="hero__stage">
+
+    <div class="hero__bg">
+      <div class="hero__bgInner">
+        <img src="hero-creta.png" alt="Hyundai Creta cinza finalizada no box do Studio G85" fetchpriority="high">
+        <video id="heroVid" poster="hero-creta.png" muted loop playsinline preload="none"
+               disablepictureinpicture disableremoteplayback aria-hidden="true" tabindex="-1">
+          <!-- 1080p H.264 com faststart: toca em todos os navegadores -->
+          <source data-src="videos/hero-web.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <div class="hero__content">
+      <img class="hero__logo" src="logo-hero-lN6XQNPM.png" alt="Studio G85" width="420" height="150">
+
+      <div class="hero__txt">
+      <h1 class="hero__title lines">
+        <span><i>O cuidado que</i></span>
+        <span><i>seu carro merece.</i></span>
+        <span><i><em>A tranquilidade que você procura.</em></i></span>
+      </h1>
+
+      <p class="hero__sub">
+        Especialistas em <b>estética e proteção veicular</b>, com foco na conservação
+        e valorização do seu veículo.
+      </p>
+
+      <div class="hero__cta">
+        <a class="btn btn--pill" href="#servicos"><span>Conheça Nossos Serviços</span></a>
+        <a class="link-cta" href="https://wa.me/558598484104?text=Ol%C3%A1,%20gostaria%20de%20uma%20avalia%C3%A7%C3%A3o%20personalizada%20para%20o%20meu%20ve%C3%ADculo!" target="_blank" rel="noopener" style="margin-top:0">
+          Solicitar Diagnóstico Premium
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path d="M4 12L12 4M12 4H5.5M12 4v6.5"/>
+          </svg>
+        </a>
+      </div>
+      </div><!-- /.hero__txt -->
+    </div>
+
+    <div class="scrollhint"><span>Role</span><i></i></div>
+  </div>
+</section>
+
+<div class="checker" aria-hidden="true"></div>
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>PPF com corte computadorizado</span><span>Vitrificação 3 e 5 anos</span>
+    <span>Window Blue · garantia vitalícia</span><span>Lavagem técnica</span>
+    <span>Ambiente climatizado</span><span>Processos documentados</span>
+    <span>PPF com corte computadorizado</span><span>Vitrificação 3 e 5 anos</span>
+    <span>Window Blue · garantia vitalícia</span><span>Lavagem técnica</span>
+    <span>Ambiente climatizado</span><span>Processos documentados</span>
+  </div>
+</div>
+
+<!-- ============================ SOBRE ============================ -->
+<section id="sobre" class="pad light">
+  <div class="shell">
+    <div class="sechead r">
+      <p class="eyebrow">Sobre nós</p>
+      <h2>Uma cultura<br>de <em>excelência</em></h2>
+    </div>
+
+    <div class="manifesto">
+      <div class="manifesto__txt r-l">
+        <p><b>Existe um tipo de prejuízo que ninguém vê acontecer.</b> Ele não bate, não risca de uma vez,
+        não faz barulho. Ele desce do sol das 11h, sobe da maresia, gruda em fezes de pássaro que ficaram
+        três dias no capô. Quando você percebe, a pintura já perdeu o brilho, o preto já virou cinza,
+        e a tabela do seu carro já baixou.</p>
+
+        <p>Somos especialistas em <mark>estética e proteção veicular</mark>, com foco na conservação e
+        valorização do seu veículo. Atuamos com soluções técnicas como <b>vitrificação, películas térmicas,
+        proteção de pintura (PPF) e lavagens técnicas</b> — alinhando cada serviço às necessidades e ao tipo
+        de uso de cada cliente.</p>
+
+        <p>Aqui, <b>cada veículo é tratado de forma individual</b>, porque não existem soluções genéricas
+        para realidades diferentes. Nosso trabalho é baseado em avaliação criteriosa, aplicação técnica
+        correta e comunicação transparente, com foco na honestidade na indicação dos serviços.</p>
+
+        <p>Mais do que estética, entregamos <mark>proteção e valorização</mark>.</p>
+      </div>
+
+      <div class="manifesto__media r-r">
+        <div class="vpres">
+          <video src="videos/apresentacao-g85.mp4" poster="suv-creta.jpg"
+                 autoplay loop muted playsinline preload="metadata"
+                 aria-label="Apresentação do Studio G85"></video>
+        </div>
+      </div>
+    </div>
+
+    <div class="values">
+      <div class="value r"><h4>Transparência</h4><p>Orçamento detalhado, comunicação clara e honestidade na indicação dos serviços. Se seu carro não precisa, a gente fala que não precisa.</p></div>
+      <div class="value r" style="transition-delay:.08s"><h4>Avaliação criteriosa</h4><p>Cada veículo é analisado individualmente para indicar a solução mais adequada. Sem pacote de prateleira.</p></div>
+      <div class="value r" style="transition-delay:.16s"><h4>Excelência técnica</h4><p>Aplicação correta, ambiente controlado e processos documentados. Você vê cada etapa, com foto e registro.</p></div>
+      <div class="value r" style="transition-delay:.24s"><h4>Compromisso</h4><p>Relações de confiança duradouras e suporte ao longo do tempo. A entrega não encerra o relacionamento.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SERVIÇOS ============================ -->
+<section id="servicos" class="pad">
+  <div class="shell">
+    <div class="sechead r">
+      <p class="eyebrow">Nossos serviços</p>
+      <h2>Proteção inteligente<br>para reduzir <em>o desgaste do tempo</em></h2>
+      <p>Cada serviço é pensado para reduzir o desgaste natural do uso diário e contribuir para a
+      conservação e valorização do veículo ao longo do tempo. <b>Clique para abrir cada frente.</b></p>
+    </div>
+
+    <div class="svc open r">
+      <div class="svc__head">
+        <h3 class="svc__ttl">Vitrificação de pintura</h3>
+        <span class="svc__tag">3 ou 5 anos</span>
+      </div>
+      <div class="svc__body"><div class="svc__inner">
+        <div class="svc__copy">
+          <p><strong>Camada de sacrifício</strong> aplicada sobre as superfícies do veículo para minimizar
+          os efeitos do ambiente e do uso diário. Abrange pintura, plásticos externos, vidros e bancos de couro.</p>
+          <p>Traduzindo: em vez do ambiente atacar a sua pintura, ele ataca a camada que a gente colocou por cima.
+          Radiação UV, fezes de pássaros, seivas de árvores, poluentes e perda de brilho passam a ser problema dela —
+          não do seu verniz.</p>
+          <p class="warn">Não é blindagem. Não protege contra lavagens incorretas ou impactos. Quem promete isso está vendendo ilusão.</p>
+        </div>
+        <ul class="svc__list">
+          <li>Vitrificação de pintura e plásticos</li>
+          <li>Vitrificação dos vidros</li>
+          <li>Vitrificação de bancos de couro</li>
+          <li>Proteção contra radiação UV e envelhecimento precoce</li>
+          <li>Barreira contra fezes de pássaros e seivas de árvores</li>
+          <li>Opções de 3 anos e 5 anos de durabilidade</li>
+        </ul>
+      </div></div>
+    </div>
+
+    <div class="svc r">
+      <div class="svc__head">
+        <h3 class="svc__ttl">Películas Window Blue</h3>
+        <span class="svc__tag">Garantia vitalícia</span>
+      </div>
+      <div class="svc__body"><div class="svc__inner">
+        <div class="svc__copy">
+          <p><strong>Películas térmicas da Window Blue</strong>, referência nacional em tecnologia,
+          desempenho óptico e confiabilidade. Conforto, proteção e segurança no uso diário.</p>
+          <p>Você já sentiu: 12h30, semáforo da Aldeota, ar no máximo e o braço queimando no vidro.
+          Não é o ar que está fraco — é o vidro que está deixando o sol entrar inteiro.</p>
+        </div>
+        <ul class="svc__list">
+          <li>Redução significativa do calor interno</li>
+          <li>Bloqueio de raios UV — certificação do Instituto do Câncer de Pele</li>
+          <li>Alta visibilidade noturna, sem aquele efeito “vidro fosco”</li>
+          <li>Garantia vitalícia nacional</li>
+          <li>Instalação sem bolhas e sem rugas — ou refazemos</li>
+        </ul>
+      </div></div>
+    </div>
+
+    <div class="svc r">
+      <div class="svc__head">
+        <h3 class="svc__ttl">PPF — Paint Protection Film</h3>
+        <span class="svc__tag">Autorregenerativo</span>
+      </div>
+      <div class="svc__body"><div class="svc__inner">
+        <div class="svc__copy">
+          <p><strong>Película transparente de alta resistência</strong> para proteger áreas estratégicas
+          contra agressões do uso cotidiano — capô, para-choque, faróis, colunas, soleiras, maçanetas.</p>
+          <p>É a diferença entre <strong>trocar a peça</strong> e <strong>trocar a película</strong>.
+          Uma custa o preço de um carro velho; a outra custa o preço de uma decisão inteligente.</p>
+          <p class="warn">Atua como proteção preventiva, não corretiva. Depois do risco, já é tarde.</p>
+        </div>
+        <ul class="svc__list">
+          <li>Proteção contra riscos leves e detritos</li>
+          <li>Tecnologia autorregenerativa</li>
+          <li>Preservação da pintura original de fábrica</li>
+          <li>PPF transparente e fumê personalizado</li>
+          <li>Aplicações internas: painel, multimídia, saídas de ar</li>
+          <li>Contribui diretamente para a valorização do veículo</li>
+        </ul>
+      </div></div>
+    </div>
+
+    <div class="svc r">
+      <div class="svc__head">
+        <h3 class="svc__ttl">Lavagens técnicas</h3>
+        <span class="svc__tag">Manutenção</span>
+      </div>
+      <div class="svc__body"><div class="svc__inner">
+        <div class="svc__copy">
+          <p><strong>Procedimentos técnicos com produtos e métodos seguros</strong>, preservando a pintura
+          e as proteções aplicadas.</p>
+          <p>Gastar milhares numa vitrificação e depois entregar o carro pra uma esponja de lava-jato
+          é como comprar um relógio suíço e limpar com palha de aço. <strong>Manutenção adequada faz parte da proteção.</strong></p>
+        </div>
+        <ul class="svc__list">
+          <li>Manutenção do acabamento por mais tempo</li>
+          <li>Redução de desgaste precoce</li>
+          <li>Preservação de vitrificações e PPF</li>
+          <li>Menor necessidade de correções futuras</li>
+          <li>Higienização interna completa e hipermeabilização dos tapetes</li>
+          <li>Polimento, cristalização e instalação de soleira de vinil</li>
+        </ul>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================ PROCESSO ============================ -->
+<section id="processo" class="pad light">
+  <div class="shell">
+    <div class="sechead r">
+      <p class="eyebrow">Como trabalhamos</p>
+      <h2>Da preparação meticulosa<br>à <em>entrega final</em></h2>
+      <p>Acompanhe cada etapa. <b>Transparência que você pode ver</b> — check-in fotográfico,
+      vistoria documentada e comunicação em cada ponto do caminho.</p>
+    </div>
+    <div class="steps">
+      <div class="step r"><div class="step__n">01</div><h4>Avaliação criteriosa</h4><p>Análise individual do veículo, do tipo de uso e da exposição real. Aqui nasce a indicação honesta — inclusive a de não fazer.</p></div>
+      <div class="step r" style="transition-delay:.09s"><div class="step__n">02</div><h4>Check-in fotográfico</h4><p>Vistoria detalhada antes do início, documentando o estado do veículo com fotos e checklist. Defeitos preexistentes ficam registrados.</p></div>
+      <div class="step r" style="transition-delay:.18s"><div class="step__n">03</div><h4>Execução controlada</h4><p>Ambiente climatizado, temperatura e umidade sob controle, processos documentados. Precisão não combina com improviso.</p></div>
+      <div class="step r" style="transition-delay:.27s"><div class="step__n">04</div><h4>Entrega e suporte</h4><p>Registro do resultado final, orientação de manutenção e acompanhamento ao longo do tempo. A entrega não encerra a relação.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ GALERIA ============================ -->
+<section id="galeria" class="pad">
+  <div class="shell">
+    <div class="sechead r">
+      <p class="eyebrow">Hall da fama</p>
+      <h2>Projetos personalizados<br>para <em>seu veículo</em></h2>
+      <p>O portfólio completo do Studio G85 — SUVs, carros, motos e PPF. <b>Clique em qualquer foto</b> para ver em tamanho grande.</p>
+    </div>
+
+    <div class="galfilter r">
+      <button type="button" class="on" data-cat="todos" aria-pressed="true">Todos <i>20</i></button>
+      <button type="button" data-cat="suvs" aria-pressed="false">SUVs <i>6</i></button>
+      <button type="button" data-cat="carros" aria-pressed="false">Carros <i>6</i></button>
+      <button type="button" data-cat="motos" aria-pressed="false">Motos <i>3</i></button>
+      <button type="button" data-cat="ppf" aria-pressed="false">PPF <i>5</i></button>
+    </div>
+
+    <div class="gal">
+      <figure class="r-s" data-cat="suvs" style="transition-delay:0.00s">
+        <img src="galeria/suv-creta.jpg" alt="Hyundai Creta branco com proteção premium" loading="lazy" decoding="async">
+        <figcaption><span>Hyundai Creta</span><b>Proteção premium · branco</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="suvs" style="transition-delay:0.05s">
+        <img src="galeria/suv-ram.jpg" alt="RAM Rampage cinza com acabamento premium" loading="lazy" decoding="async">
+        <figcaption><span>RAM Rampage</span><b>Acabamento premium · cinza</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="suvs" style="transition-delay:0.10s">
+        <img src="galeria/suv-bronco.jpg" alt="Ford Bronco Sport branco com proteção completa" loading="lazy" decoding="async">
+        <figcaption><span>Ford Bronco Sport</span><b>Proteção completa · branco</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="suvs" style="transition-delay:0.15s">
+        <img src="galeria/suv-hilux.jpg" alt="Toyota Hilux vermelha com tratamento premium" loading="lazy" decoding="async">
+        <figcaption><span>Toyota Hilux</span><b>Tratamento premium · vermelha</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="suvs" style="transition-delay:0.20s">
+        <img src="galeria/suv-tcross.jpg" alt="VW T-Cross cinza com vitrificação" loading="lazy" decoding="async">
+        <figcaption><span>VW T-Cross</span><b>Vitrificação · cinza</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="suvs" style="transition-delay:0.25s">
+        <img src="galeria/suv-discovery.png" alt="Land Rover Discovery vermelha com serviços premium" loading="lazy" decoding="async">
+        <figcaption><span>Land Rover Discovery</span><b>Serviços premium · vermelha</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="carros" style="transition-delay:0.30s">
+        <img src="galeria/carro-polo.jpg" alt="VW Polo vermelho com proteção premium" loading="lazy" decoding="async">
+        <figcaption><span>VW Polo</span><b>Proteção premium · vermelho</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="carros" style="transition-delay:0.35s">
+        <img src="galeria/carro-civic.jpg" alt="Honda Civic cinza com vitrificação" loading="lazy" decoding="async">
+        <figcaption><span>Honda Civic</span><b>Vitrificação · cinza</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="carros">
+        <img src="galeria/carro-corolla.jpg" alt="Toyota Corolla preto com tratamento completo" loading="lazy" decoding="async">
+        <figcaption><span>Toyota Corolla</span><b>Tratamento completo · preto</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="carros">
+        <img src="galeria/carro-civic-branco.jpg" alt="Honda Civic branco com acabamento premium" loading="lazy" decoding="async">
+        <figcaption><span>Honda Civic</span><b>Acabamento premium · branco</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="carros">
+        <img src="galeria/carro-virtus.jpg" alt="VW Virtus GTS cinza com proteção premium" loading="lazy" decoding="async">
+        <figcaption><span>VW Virtus GTS</span><b>Proteção premium · cinza</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="carros">
+        <img src="galeria/carro-sedan-esportivo.png" alt="Sedan esportivo com acabamento premium" loading="lazy" decoding="async">
+        <figcaption><span>Sedan esportivo</span><b>Acabamento premium</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="motos">
+        <img src="galeria/moto-bmw-r1250.png" alt="BMW R1250 GS com película e acessórios premium" loading="lazy" decoding="async">
+        <figcaption><span>BMW R1250 GS</span><b>Película e acessórios premium</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="motos">
+        <img src="galeria/moto-bmw-gs.jpg" alt="BMW GS Adventure preta com proteção completa" loading="lazy" decoding="async">
+        <figcaption><span>BMW GS Adventure</span><b>Proteção completa · preta</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="motos">
+        <img src="galeria/moto-kawasaki-ninja.jpg" alt="Kawasaki Ninja ZX-4RR verde com acabamento premium" loading="lazy" decoding="async">
+        <figcaption><span>Kawasaki Ninja ZX-4RR</span><b>Acabamento premium · verde</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="ppf">
+        <img src="galeria/ppf-tiggo-exterior.jpg" alt="Tiggo 8 PRO com PPF interno Black Piano" loading="lazy" decoding="async">
+        <figcaption><span>Tiggo 8 PRO</span><b>PPF interno Black Piano</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="ppf">
+        <img src="galeria/ppf-tiggo-interior.jpg" alt="Interior Tiggo 8 PRO com PPF no painel e multimídia" loading="lazy" decoding="async">
+        <figcaption><span>Tiggo 8 PRO</span><b>PPF no painel e multimídia</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="ppf">
+        <img src="galeria/ppf-tiggo-console.jpg" alt="Console central Tiggo 8 PRO com PPF Black Piano" loading="lazy" decoding="async">
+        <figcaption><span>Tiggo 8 PRO</span><b>PPF Black Piano no console</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="ppf">
+        <img src="galeria/ppf-tiggo-ar.jpg" alt="Saída de ar traseiro Tiggo 8 PRO com PPF" loading="lazy" decoding="async">
+        <figcaption><span>Tiggo 8 PRO</span><b>PPF na saída de ar traseira</b></figcaption>
+      </figure>
+      <figure class="r-s" data-cat="ppf">
+        <img src="galeria/ppf-byd.png" alt="Sedã BYD com proteção PPF premium" loading="lazy" decoding="async">
+        <figcaption><span>Sedã BYD</span><b>Proteção PPF premium</b></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- lightbox das fotos da galeria -->
+<div class="glb" id="glb" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button class="lb__x" id="glbx" aria-label="Fechar foto">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <button class="glb__nav prev" id="glbp" aria-label="Foto anterior">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <button class="glb__nav next" id="glbn" aria-label="Próxima foto">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
+  <figure class="glb__box">
+    <img id="glbi" alt="">
+    <figcaption><b id="glbt"></b><span id="glbs"></span></figcaption>
+  </figure>
+</div>
+
+<!-- ============================ VÍDEOS ============================ -->
+<section id="videos" class="pad light">
+  <div class="shell">
+    <div class="sechead r">
+      <p class="eyebrow">Resultados em vídeo</p>
+      <h2>Foto qualquer um edita.<br><em>Vídeo não mente.</em></h2>
+      <p>Acompanhe cada etapa: da preparação meticulosa à entrega final.
+      <b>Transparência que você pode ver.</b> Toque para assistir com som.</p>
+    </div>
+
+    <div class="vgrid r">
+      <button class="vcard" data-src="videos/creta-processo.mp4" data-t="Processo Detalhado — Creta" data-d="Vitrificação de pintura e plásticos">
+        <video src="videos/creta-processo.mp4#t=0.5" muted loop playsinline preload="metadata"></video>
+        <div class="vcard__scrim"></div>
+        <div class="vcard__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="vcard__meta"><b>Processo Detalhado — Creta</b><span>Vitrificação de pintura e plásticos</span></div>
+      </button>
+
+      <button class="vcard" data-src="videos/porsche-cayenne-ppf.mp4" data-t="Porsche Cayenne — PPF" data-d="Manutenção de PPF frontal e proteção premium">
+        <video src="videos/porsche-cayenne-ppf.mp4#t=0.5" muted loop playsinline preload="metadata"></video>
+        <div class="vcard__scrim"></div>
+        <div class="vcard__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="vcard__meta"><b>Porsche Cayenne — PPF</b><span>Manutenção de PPF frontal e proteção premium</span></div>
+      </button>
+
+      <button class="vcard" data-src="videos/vw-completo.mp4" data-t="Tratamento Completo — BYD" data-d="Pacote premium de proteção">
+        <video src="videos/vw-completo.mp4#t=0.5" muted loop playsinline preload="metadata"></video>
+        <div class="vcard__scrim"></div>
+        <div class="vcard__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="vcard__meta"><b>Tratamento Completo — BYD</b><span>Pacote premium de proteção</span></div>
+      </button>
+
+      <button class="vcard" data-src="videos/tracker-charme.mp4" data-t="Tracker 2008 — Restauração" data-d="Charme e elegância preservados">
+        <video src="videos/tracker-charme.mp4#t=0.5" muted loop playsinline preload="metadata"></video>
+        <div class="vcard__scrim"></div>
+        <div class="vcard__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="vcard__meta"><b>Tracker 2008 — Restauração</b><span>Charme e elegância preservados</span></div>
+      </button>
+
+      <button class="vcard" data-src="videos/ranger-chrome-delete.mp4" data-t="Ranger — Chrome Delete" data-d="PPF transparente e fumê personalizado">
+        <video src="videos/ranger-chrome-delete.mp4#t=0.5" muted loop playsinline preload="metadata"></video>
+        <div class="vcard__scrim"></div>
+        <div class="vcard__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="vcard__meta"><b>Ranger — Chrome Delete</b><span>PPF transparente e fumê personalizado</span></div>
+      </button>
+
+      <button class="vcard" data-src="videos/ppf-protecao.mp4" data-t="PPF — Proteção Premium" data-d="Projetos personalizados para seu veículo">
+        <video src="videos/ppf-protecao.mp4#t=0.5" muted loop playsinline preload="metadata"></video>
+        <div class="vcard__scrim"></div>
+        <div class="vcard__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="vcard__meta"><b>PPF — Proteção Premium</b><span>Projetos personalizados para seu veículo</span></div>
+      </button>
+    </div>
+
+    <div class="vcta r">
+      <p>Veja nossos resultados em vídeo e transforme seu veículo!</p>
+      <a class="btn btn--ghost" href="https://wa.me/558598484104?text=Ol%C3%A1,%20vi%20os%20v%C3%ADdeos%20no%20site%20e%20quero%20um%20or%C3%A7amento!" target="_blank" rel="noopener"><span>Quero esse resultado no meu carro</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- lightbox de vídeo -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Vídeo">
+  <button class="lb__x" id="lbx" aria-label="Fechar vídeo">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+  </button>
+  <div class="lb__box">
+    <video id="lbv" controls playsinline preload="auto"></video>
+    <div class="lb__cap"><b id="lbt"></b><span id="lbd"></span></div>
+  </div>
+</div>
+
+<!-- ============================ QUOTE BREAK ============================ -->
+<section class="break">
+  <div class="break__bg" data-speed="0.18">
+    <img src="suv-creta.jpg" alt="" aria-hidden="true" loading="lazy">
+  </div>
+  <div class="break__txt">
+    <q class="lines r">
+      <span><i>Seu carro é o segundo</i></span>
+      <span><i>maior patrimônio da sua vida.</i></span>
+      <span><i><em>Trate como o primeiro.</em></i></span>
+    </q>
+    <cite class="r">Studio G85 · Fortaleza · Ceará</cite>
+  </div>
+</section>
+
+<!-- ============================ PERFIL ============================ -->
+<section id="perfil" class="pad light">
+  <div class="shell">
+    <div class="sechead r">
+      <p class="eyebrow">Seja honesto com você</p>
+      <h2>Nossos serviços são<br>indicados <em>para quem…</em></h2>
+      <p>Não trabalhamos para todo mundo — e isso é uma escolha. <b>Leia as duas colunas antes de chamar no WhatsApp.</b></p>
+    </div>
+    <div class="perfil">
+      <div class="yes r-l">
+        <h4>É pra você se</h4>
+        <ul>
+          <li>Valoriza o veículo como um bem importante, não como um objeto descartável</li>
+          <li>Se preocupa com desgaste, desvalorização e exposição ambiental</li>
+          <li>Prefere investir em proteções preventivas, evitando correções recorrentes</li>
+          <li>Valoriza qualidade, transparência e critério técnico</li>
+          <li>Busca preservação e valorização a longo prazo</li>
+          <li>Entende que manutenção adequada faz parte da proteção</li>
+        </ul>
+      </div>
+      <div class="no r-r">
+        <h4>Não é pra você se</h4>
+        <ul>
+          <li>Está procurando o menor preço da cidade — não somos, e não vamos ser</li>
+          <li>Quer “aquele brilho” pra vender o carro semana que vem</li>
+          <li>Acredita que vitrificação é blindagem contra impacto</li>
+          <li>Vai lavar no lava-jato de esponja no domingo seguinte</li>
+          <li>Prefere corrigir depois em vez de proteger antes</li>
+          <li>Quer o serviço pronto pra ontem, sem processo e sem registro</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ AVALIAÇÕES ============================ -->
+<section id="avaliacoes" class="pad">
+  <div class="shell">
+    <div class="sechead r">
+      <p class="eyebrow">Avaliações</p>
+      <h2>Não acredite em nós.<br>Acredite <em>neles.</em></h2>
+      <p>Avaliações reais de clientes que confiaram no Studio G85. No Google, a ficha se chama
+      <b>“Studio G85 — A Melhor Estética Automotiva e Detailing de Fortaleza”</b>. Não fomos nós que
+      escrevemos essa parte: foram eles.</p>
+      <div class="google">
+        <div class="google__score">5,0</div>
+        <div>
+          <div class="stars">★★★★★</div>
+          <div class="google__meta">Avaliações verificadas · nota máxima no Google</div>
+        </div>
+        <a class="btn btn--ghost" href="https://maps.app.goo.gl/q9YaERKTfQfvr2jG8" target="_blank" rel="noopener"><span>Ver todas no Google</span></a>
+      </div>
+    </div>
+
+    <div class="rail r">
+      <article class="card tilt">
+        <p class="card__q">Faz jus ao slogan de ser “a melhor Estética Automotiva”. Serviço de qualidade, realizado nas especificações de cada procedimento, além de ter um atendimento franco, direto e personalizado. Fiz o serviço de vitrificação da pintura, dos faróis e dos couros dos bancos e portas, todos com produtos de qualidade.</p>
+        <div class="card__who"><div class="card__av">AC</div><div><b>Alessandro Carvalho</b><span>★★★★★ · Local Guide · há 5 meses</span></div></div>
+      </article>
+      <article class="card tilt">
+        <p class="card__q">Desde o recebimento do carro à entrega fui muito bem atendido. Os funcionários de operação são bastante criteriosos, portanto não deixam passar nada em relação ao serviço que está sendo feito. Excelente serviço, meu carro está novo.</p>
+        <div class="card__who"><div class="card__av">VM</div><div><b>Vinicius Mota</b><span>★★★★★ · Google · há 4 meses</span></div></div>
+      </article>
+      <article class="card tilt">
+        <p class="card__q">Fiz dois serviços recentemente: a aplicação da Window Blue e a vitrificação dos bancos e da lataria. O atendimento foi excelente, com muita atenção aos detalhes e explicação de cada etapa do processo.</p>
+        <div class="card__who"><div class="card__av">IR</div><div><b>Igor Rocha</b><span>★★★★★ · Local Guide · há 10 meses</span></div></div>
+      </article>
+      <article class="card tilt">
+        <p class="card__q">A melhor estética automotiva de Fortaleza! Fiquei impressionado com a qualidade do serviço. Qualidade no serviço, simpatia e atendimento de primeira, fidelizei!</p>
+        <div class="card__who"><div class="card__av">DS</div><div><b>Diogenes Silveira</b><span>★★★★★ · Google · avaliação recente</span></div></div>
+      </article>
+      <article class="card tilt">
+        <p class="card__q">Melhor estética automotiva de Fortaleza, disparado!!! Indico demais, o carro ficou lindo demais com a Vitrificação!!!</p>
+        <div class="card__who"><div class="card__av">PM</div><div><b>Pierre Monteiro</b><span>★★★★★ · Local Guide · há 2 meses</span></div></div>
+      </article>
+      <article class="card tilt">
+        <p class="card__q">Serviço e atendimento impecável! Thiago e todo o time estão de parabéns. Orçamento justo, trabalho super bem feito. Recomendo demais qualquer serviço de estética automotiva com eles aqui em Fortaleza.</p>
+        <div class="card__who"><div class="card__av">GT</div><div><b>Gustavo Toledo</b><span>★★★★★ · Google · há 3 meses</span></div></div>
+      </article>
+      <article class="card tilt">
+        <p class="card__q">Atendimento e serviço excepcionais. Preço competitivo, condições de pagamento flexíveis. Thiago esclarece as dúvidas com prontidão e detalhamento. A prestação do serviço foi minuciosa. Super indico!</p>
+        <div class="card__who"><div class="card__av">PH</div><div><b>Paula Honório</b><span>★★★★★ · Google · há 4 meses</span></div></div>
+      </article>
+      <article class="card tilt">
+        <p class="card__q">Profissionais de EXCELÊNCIA! Empresa muito bem estruturada e equipe de alta qualidade executa todos os serviços com maestria. Levei meu carro 0km da concessionária direto para a G85 com total confiança.</p>
+        <div class="card__who"><div class="card__av">CR</div><div><b>Celio Rocha</b><span>★★★★★ · Google · há 4 meses</span></div></div>
+      </article>
+      <article class="card tilt">
+        <p class="card__q">Fiz a aplicação de película nos vidros do meu carro e fiquei satisfeito com o resultado. O serviço foi feito com muito cuidado e atenção aos detalhes. A película ficou perfeitamente instalada, sem bolhas, sem rugas.</p>
+        <div class="card__who"><div class="card__av">EM</div><div><b>Ernani Montenegro</b><span>★★★★★ · Google · há 4 meses</span></div></div>
+      </article>
+      <article class="card tilt">
+        <p class="card__q">Uma empresa inovadora, atendimento humanizado, produtos e serviços 100% de qualidade 5 estrelas e por fim preço competitivo de mercado. Parabéns a G85! 👏</p>
+        <div class="card__who"><div class="card__av">MC</div><div><b>Márzio Mendes Campos</b><span>★★★★★ · Google · avaliação recente</span></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ESTRUTURA ============================ -->
+<section id="estrutura" class="pad light">
+  <div class="shell">
+    <div class="struct">
+      <div class="r-l">
+        <p class="eyebrow">Nossa estrutura</p>
+        <h2 style="font-family:var(--f-display);font-weight:800;text-transform:uppercase;font-size:clamp(1.9rem,4.4vw,3.4rem);line-height:1;letter-spacing:-.035em;margin-top:16px">
+          O box não é<br>uma garagem. <em style="font-style:normal;color:var(--gold)">É um laboratório.</em>
+        </h2>
+        <p style="margin-top:24px;color:var(--paper-dim);font-weight:300;line-height:1.85">
+          <b style="color:var(--paper)">Ambiente climatizado com controle de temperatura e umidade</b> para procedimentos de
+          alta precisão. Porque película, PPF e vitrificação não são produtos — são reações químicas.
+          E reação química não gosta de calor de 34°C nem de umidade de litoral.
+        </p>
+        <p style="margin-top:18px;color:var(--paper-dim);font-weight:300;line-height:1.85">
+          Converse conosco e agende uma avaliação personalizada para conhecer nosso ambiente de trabalho,
+          equipamentos e metodologia. <b style="color:var(--paper)">Venha ver antes de decidir.</b>
+        </p>
+        <div class="spec">
+          <div><b>Climatizado</b><span>Temperatura e umidade controladas</span></div>
+          <div><b>Documentado</b><span>Check-in fotográfico e vistoria</span></div>
+          <div><b>Aldeota</b><span>R. Fiúsa de Pontes, 550 · 60140-195</span></div>
+          <div><b>Seg–Sáb</b><span>08h às 18h · sáb até 12h</span></div>
+        </div>
+      </div>
+      <div class="r-r">
+        <div class="frame">
+          <img src="suv-bronco.jpg" alt="Ford Bronco Sport branco no ambiente climatizado do Studio G85" loading="lazy" data-speed="0.06">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FAQ ============================ -->
+<section id="faq" class="pad">
+  <div class="shell">
+    <div class="sechead r">
+      <p class="eyebrow">Antes de perguntar</p>
+      <h2>As dúvidas que <em>todo mundo</em> tem</h2>
+    </div>
+    <div class="faq r">
+      <div class="faq__i open">
+        <button class="faq__q">Vitrificação é a mesma coisa que blindagem de pintura?<i></i></button>
+        <div class="faq__a"><p>Não. E quem te disser que é, está mentindo. A vitrificação é uma <strong>camada de sacrifício</strong>: ela absorve o ataque do ambiente no lugar do seu verniz. Ela não protege contra impactos e nem contra lavagem incorreta. Para proteção física contra riscos e detritos, o caminho é o PPF.</p></div>
+      </div>
+      <div class="faq__i">
+        <button class="faq__q">3 anos ou 5 anos de vitrificação — qual faz sentido pra mim?<i></i></button>
+        <div class="faq__a"><p>Depende de exposição, tipo de uso e de quanto tempo você pretende ficar com o carro. Carro que dorme na rua, roda no litoral e pega sol o dia inteiro pede mais. Carro de garagem, uso urbano leve, pede menos. É exatamente isso que a avaliação presencial define — <strong>não existem soluções genéricas para realidades diferentes</strong>.</p></div>
+      </div>
+      <div class="faq__i">
+        <button class="faq__q">O PPF vai aparecer na pintura? Vai amarelar?<i></i></button>
+        <div class="faq__a"><p>PPF de qualidade, aplicado com corte correto e em ambiente controlado, é transparente e discreto. A tecnologia autorregenerativa faz microrriscos superficiais desaparecerem com calor. Também trabalhamos com <strong>PPF fumê personalizado</strong> quando o objetivo é estético, além de aplicações internas em painel, multimídia e saídas de ar.</p></div>
+      </div>
+      <div class="faq__i">
+        <button class="faq__q">A película Window Blue escurece demais? E de noite?<i></i></button>
+        <div class="faq__a"><p>A Window Blue é referência nacional justamente por equilibrar as três coisas: <strong>redução de calor, bloqueio de UV (com certificação do Instituto do Câncer de Pele) e alta visibilidade noturna</strong>. Não é película de camelô que vira espelho preto à noite. E a garantia é vitalícia nacional.</p></div>
+      </div>
+      <div class="faq__i">
+        <button class="faq__q">Posso lavar em qualquer lava-jato depois?<i></i></button>
+        <div class="faq__a"><p>Pode. Assim como você <em>pode</em> lavar louça de cristal com palha de aço. <strong>Manutenção adequada faz parte da proteção.</strong> A lavagem técnica usa produtos e métodos seguros que preservam a pintura e as proteções aplicadas — o que significa acabamento durando mais, menos desgaste precoce e menos correção no futuro.</p></div>
+      </div>
+      <div class="faq__i">
+        <button class="faq__q">Quanto custa?<i></i></button>
+        <div class="faq__a"><p>Não tem tabela única, e é honesto que não tenha. O valor depende do porte do veículo, do estado atual da pintura e do escopo indicado. O que garantimos é <strong>orçamento detalhado, comunicação clara e honestidade na indicação</strong> — inclusive quando a indicação é fazer menos do que você pediu. Serviços adicionais recebem desconto progressivo automático.</p></div>
+      </div>
+      <div class="faq__i">
+        <button class="faq__q">Como funciona o agendamento?<i></i></button>
+        <div class="faq__a"><p>Rápido, fácil e sem complicação: chama no WhatsApp, agenda a avaliação presencial, o veículo passa pelo check-in fotográfico e você recebe o escopo com valores antes de qualquer coisa começar. Cancelamentos com no mínimo 24h de antecedência.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CONTATO ============================ -->
+<section id="contato" class="pad">
+  <div class="vbg" aria-hidden="true">
+    <video id="ctaVid" poster="suv-creta.jpg" muted loop playsinline webkit-playsinline
+           preload="none" disablepictureinpicture disableremoteplayback
+           aria-hidden="true" tabindex="-1">
+      <source data-src="videos/creta-resultado.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="ghostnum" aria-hidden="true">G85</div>
+  <div class="shell">
+    <div class="finale">
+      <p class="eyebrow" style="justify-content:center">Última chamada</p>
+      <h2 class="lines r">
+        <span><i>Pronto para</i></span>
+        <span><i><em>transformar seu veículo?</em></i></span>
+      </h2>
+      <p class="r">O sol de amanhã já está marcado no calendário e ele não vai perguntar se você decidiu.
+      Converse conosco e agende uma avaliação personalizada — <b style="color:var(--paper)">é gratuita, é presencial e é sem enrolação.</b></p>
+      <a class="btn r" href="https://wa.me/558598484104?text=Ol%C3%A1,%20gostaria%20de%20uma%20avalia%C3%A7%C3%A3o%20personalizada%20para%20o%20meu%20ve%C3%ADculo!" target="_blank" rel="noopener">
+        <span>Chamar no WhatsApp agora</span>
+      </a>
+    </div>
+
+    <div class="info r">
+      <a href="https://maps.app.goo.gl/q9YaERKTfQfvr2jG8" target="_blank" rel="noopener">
+        <b>Endereço · Google Maps</b>
+        <p><strong>Rua Fiúsa de Pontes, 550</strong>Aldeota · Fortaleza — CE · 60140-195<br>Ambiente climatizado, com controle de temperatura e umidade</p>
+      </a>
+      <div>
+        <b>Horário de funcionamento</b>
+        <p><strong>Segunda a sexta · 08h às 18h</strong>Sábado · 08h às 12h<br>Agendamento prévio recomendado</p>
+      </div>
+      <a href="https://wa.me/558598484104?text=Ol%C3%A1,%20vim%20pelo%20site!" target="_blank" rel="noopener">
+        <b>Contato</b>
+        <p><strong>(85) 9848-4104</strong>WhatsApp · resposta rápida<br>Instagram: @studio.g85</p>
+      </a>
+    </div>
+
+    <div class="mapwrap r">
+      <iframe
+        title="Studio G85 no Google Maps — Rua Fiúsa de Pontes, 550, Aldeota, Fortaleza"
+        src="https://www.google.com/maps?q=-3.7346515,-38.5139958&amp;z=17&amp;hl=pt-BR&amp;output=embed"
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <a class="mapwrap__cta" href="https://maps.app.goo.gl/q9YaERKTfQfvr2jG8" target="_blank" rel="noopener">
+        <span>Traçar rota até o Studio</span>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12L12 4M12 4H5.5M12 4v6.5"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer>
+  <div class="shell">
+    <div class="foot">
+      <img src="logo-hero-lN6XQNPM.png" alt="Studio G85">
+      <nav class="foot__nav">
+        <a href="#sobre">Sobre</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#processo">Processo</a>
+        <a href="#galeria">Galeria</a>
+        <a href="#videos">Vídeos</a>
+        <a href="#avaliacoes">Avaliações</a>
+        <a href="https://www.instagram.com/studio.g85" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://wa.me/558598484104" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://maps.app.goo.gl/q9YaERKTfQfvr2jG8" target="_blank" rel="noopener">Como chegar</a>
+      </nav>
+    </div>
+    <div class="foot__legal">
+      <span>© 2026 Studio G85 — Estética e Proteção Automotiva. Todos os direitos reservados.</span>
+      <a href="https://maps.app.goo.gl/q9YaERKTfQfvr2jG8" target="_blank" rel="noopener">Rua Fiúsa de Pontes, 550 · Aldeota · Fortaleza — CE · 60140-195</a>
+    </div>
+  </div>
+</footer>
+
+<a class="wa" id="wa" href="https://wa.me/558598484104?text=Ol%C3%A1,%20vim%20pelo%20site!" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.03-.53-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.53.07-.8.38-.27.3-1.05 1.02-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.14 4.54.72.31 1.28.5 1.71.64.72.23 1.38.2 1.9.12.58-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.02a9.75 9.75 0 0 1-4.96-1.36l-.36-.21-3.68.96.98-3.59-.23-.37a9.72 9.72 0 0 1-1.49-5.19c0-5.38 4.38-9.76 9.77-9.76a9.7 9.7 0 0 1 6.9 2.86 9.68 9.68 0 0 1 2.86 6.9c0 5.39-4.39 9.77-9.77 9.77M20.52 3.45A11.77 11.77 0 0 0 12.05 0C5.5 0 .17 5.33.17 11.88c0 2.1.55 4.14 1.6 5.95L.07 24l6.33-1.66a11.86 11.86 0 0 0 5.65 1.44h.01c6.55 0 11.88-5.33 11.88-11.88 0-3.17-1.24-6.15-3.48-8.4"/></svg>
+  <span>Falar agora</span>
+</a>
+
+<script>
+(function(){
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- ponteiro fino ---------- */
+  if(window.matchMedia('(pointer:fine)').matches) document.body.classList.add('pointer-fine');
+
+  /* ---------- NAV ---------- */
+  var nav = document.getElementById('nav');
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('menu');
+  burger.addEventListener('click', function(){
+    burger.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
+  menu.addEventListener('click', function(e){
+    if(e.target.tagName === 'A'){ burger.classList.remove('open'); menu.classList.remove('open'); }
+  });
+
+  /* ---------- PARALLAX + PROGRESSO (um único rAF) ---------- */
+  var layers = [].slice.call(document.querySelectorAll('[data-speed]'));
+  var prog = document.getElementById('prog');
+  var wa = document.getElementById('wa');
+  var ticking = false, lastY = window.scrollY;
+
+  function frame(){
+    var y = lastY;
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+
+    prog.style.transform = 'scaleX(' + (h > 0 ? y / h : 0) + ')';
+    nav.classList.toggle('stuck', y > 60);
+    wa.classList.toggle('show', y > window.innerHeight * 0.5);
+
+    if(!reduce){
+      var vh = window.innerHeight;
+      for(var i = 0; i < layers.length; i++){
+        var el = layers[i];
+        var r = el.getBoundingClientRect();
+        if(r.bottom < -300 || r.top > vh + 300) continue;
+        var speed = parseFloat(el.getAttribute('data-speed')) || 0;
+        var mid = r.top + r.height / 2 - vh / 2;
+        el.style.transform = 'translate3d(0,' + (-mid * speed).toFixed(2) + 'px,0)';
+      }
+    }
+    ticking = false;
+  }
+  function onScroll(){
+    lastY = window.scrollY;
+    if(!ticking){ ticking = true; requestAnimationFrame(frame); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  frame();
+
+  /* ---------- SPOTLIGHT ---------- */
+  var spot = document.getElementById('spot');
+  if(!reduce && document.body.classList.contains('pointer-fine')){
+    var sx = window.innerWidth/2, sy = window.innerHeight/2, cx = sx, cy = sy, raf = null;
+    window.addEventListener('mousemove', function(e){
+      sx = e.clientX; sy = e.clientY;
+      if(!raf) raf = requestAnimationFrame(easeSpot);
+    }, {passive:true});
+    function easeSpot(){
+      cx += (sx - cx) * 0.09; cy += (sy - cy) * 0.09;
+      spot.style.left = cx + 'px'; spot.style.top = cy + 'px';
+      if(Math.abs(sx-cx) > 0.5 || Math.abs(sy-cy) > 0.5){ raf = requestAnimationFrame(easeSpot); }
+      else raf = null;
+    }
+  }
+
+  /* ---------- REVEALS ---------- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      }
+    });
+  }, {threshold:0.14, rootMargin:'0px 0px -8% 0px'});
+
+  [].slice.call(document.querySelectorAll('.r,.r-l,.r-r,.r-s,.lines')).forEach(function(el){ io.observe(el); });
+
+  /* hero: revela imediatamente */
+  requestAnimationFrame(function(){
+    [].slice.call(document.querySelectorAll('.hero .lines')).forEach(function(el){ el.classList.add('in'); });
+  });
+
+  /* ---------- ACORDEÃO SERVIÇOS ---------- */
+  [].slice.call(document.querySelectorAll('.svc__head')).forEach(function(h){
+    h.addEventListener('click', function(){
+      var svc = h.parentElement;
+      var wasOpen = svc.classList.contains('open');
+      [].slice.call(document.querySelectorAll('.svc')).forEach(function(s){ s.classList.remove('open'); });
+      if(!wasOpen) svc.classList.add('open');
+    });
+  });
+
+  /* ---------- FAQ ---------- */
+  [].slice.call(document.querySelectorAll('.faq__q')).forEach(function(b){
+    b.addEventListener('click', function(){
+      var item = b.parentElement;
+      var wasOpen = item.classList.contains('open');
+      [].slice.call(document.querySelectorAll('.faq__i')).forEach(function(i){ i.classList.remove('open'); });
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+
+  /* ---------- TILT NOS CARDS ---------- */
+  if(!reduce && document.body.classList.contains('pointer-fine')){
+    [].slice.call(document.querySelectorAll('.tilt')).forEach(function(c){
+      c.addEventListener('mousemove', function(e){
+        var r = c.getBoundingClientRect();
+        var px = (e.clientX - r.left)/r.width - .5;
+        var py = (e.clientY - r.top)/r.height - .5;
+        c.style.transform = 'perspective(900px) rotateY(' + (px*5).toFixed(2) + 'deg) rotateX(' + (-py*5).toFixed(2) + 'deg) translateY(-6px)';
+      });
+      c.addEventListener('mouseleave', function(){ c.style.transform = ''; });
+    });
+  }
+
+  /* ---------- VÍDEO DE FUNDO DA HERO ---------- */
+  (function(){
+    var hv = document.getElementById('heroVid');
+    if(!hv) return;
+
+    /* não carrega nada se o usuário pediu menos movimento ou está economizando dados */
+    var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    var slow = !!(conn && (conn.saveData ||
+                 /^(slow-)?2g$|^3g$/.test(conn.effectiveType || '')));
+    if(reduce || slow) return;               /* fica só o poster: zero bytes baixados */
+
+    var srcs = hv.querySelectorAll('source[data-src]');
+    if(!srcs.length) return;
+    for(var i=0;i<srcs.length;i++){
+      srcs[i].src = srcs[i].getAttribute('data-src');
+    }
+    hv.preload = 'auto';
+    hv.load();  /* o navegador escolhe a 1a fonte que sabe decodificar */
+
+    hv.addEventListener('playing', function(){ hv.classList.add('ready'); }, {once:true});
+
+    function tryPlay(){
+      var p = hv.play();
+      if(p && p.catch) p.catch(function(){ /* autoplay bloqueado: mantém o poster */ });
+    }
+    tryPlay();
+
+    /* só gasta CPU/bateria enquanto a hero está visível */
+    var hio = new IntersectionObserver(function(en){
+      if(en[0].isIntersecting) tryPlay(); else hv.pause();
+    }, {threshold:0.01});
+    hio.observe(hv);
+
+    /* e nada de rodar com a aba em segundo plano */
+    document.addEventListener('visibilitychange', function(){
+      if(document.hidden) hv.pause();
+      else if(hv.getBoundingClientRect().bottom > 0) tryPlay();
+    });
+  })();
+
+  /* ---------- VÍDEO DE FUNDO DO CTA FINAL (ÚLTIMA CHAMADA) ---------- */
+  (function(){
+    var cv = document.getElementById('ctaVid');
+    if(!cv) return;
+
+    /* quem pediu menos movimento ou está economizando dados fica só com a foto */
+    var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    var slow = !!(conn && (conn.saveData ||
+                 /^(slow-)?2g$|^3g$/.test(conn.effectiveType || '')));
+    if(reduce || slow) return;
+
+    var loaded = false;
+    function load(){
+      if(loaded) return;
+      loaded = true;
+      var srcs = cv.querySelectorAll('source[data-src]');
+      for(var i=0;i<srcs.length;i++){ srcs[i].src = srcs[i].getAttribute('data-src'); }
+      cv.preload = 'auto';
+      cv.load();
+    }
+
+    cv.addEventListener('playing', function(){ cv.classList.add('ready'); }, {once:true});
+
+    function tryPlay(){
+      load();
+      var p = cv.play();
+      if(p && p.catch) p.catch(function(){
+        /* iOS em Modo de Baixo Consumo só libera depois de um toque:
+           fica armado para a primeira interação do usuário */
+        var once = function(){
+          var q = cv.play();
+          if(q && q.catch) q.catch(function(){});
+          document.removeEventListener('touchstart', once);
+          document.removeEventListener('click', once);
+        };
+        document.addEventListener('touchstart', once, {passive:true});
+        document.addEventListener('click', once);
+      });
+    }
+
+    /* começa a baixar um pouco antes da seção chegar e só roda enquanto ela está na tela */
+    var cio = new IntersectionObserver(function(en){
+      if(en[0].isIntersecting) tryPlay(); else cv.pause();
+    }, {threshold:0.01, rootMargin:'220px 0px'});
+    cio.observe(cv);
+
+    document.addEventListener('visibilitychange', function(){
+      if(document.hidden) cv.pause();
+      else {
+        var r = cv.getBoundingClientRect();
+        if(r.bottom > 0 && r.top < innerHeight) tryPlay();
+      }
+    });
+  })();
+
+  /* ---------- VÍDEOS: preview no hover + lightbox ---------- */
+  var cards = [].slice.call(document.querySelectorAll('.vcard'));
+  var lb  = document.getElementById('lb');
+  var lbv = document.getElementById('lbv');
+  var lbx = document.getElementById('lbx');
+  var lbt = document.getElementById('lbt');
+  var lbd = document.getElementById('lbd');
+  var lastFocus = null;
+
+  /* só toca o preview quando o card está na tela (economiza bateria/dados) */
+  var vio = new IntersectionObserver(function(en){
+    en.forEach(function(e){
+      var v = e.target.querySelector('video');
+      if(!v) return;
+      if(!e.isIntersecting && !v.paused) v.pause();
+    });
+  }, {threshold:0});
+  cards.forEach(function(c){ vio.observe(c); });
+
+  cards.forEach(function(c){
+    var v = c.querySelector('video');
+    c.addEventListener('mouseenter', function(){
+      if(reduce || !v) return;
+      var p = v.play(); if(p && p.catch) p.catch(function(){});
+    });
+    c.addEventListener('mouseleave', function(){ if(v){ v.pause(); v.currentTime = 0.5; } });
+    c.addEventListener('click', function(){
+      lastFocus = c;
+      lbv.src = c.getAttribute('data-src');
+      lbt.textContent = c.getAttribute('data-t');
+      lbd.textContent = c.getAttribute('data-d');
+      lb.classList.add('on');
+      requestAnimationFrame(function(){ lb.classList.add('vis'); });
+      document.body.style.overflow = 'hidden';
+      var p = lbv.play(); if(p && p.catch) p.catch(function(){});
+      lbx.focus();
+    });
+  });
+
+  function closeLb(){
+    if(!lb.classList.contains('on')) return;
+    lb.classList.remove('vis');
+    lbv.pause();
+    setTimeout(function(){
+      lb.classList.remove('on');
+      lbv.removeAttribute('src');
+      lbv.load();
+    }, 420);
+    document.body.style.overflow = '';
+    if(lastFocus) lastFocus.focus();
+  }
+  if(lbx) lbx.addEventListener('click', closeLb);
+  if(lb) lb.addEventListener('click', function(e){ if(e.target === lb) closeLb(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLb(); });
+
+  /* ---------- GALERIA: FILTRO POR CATEGORIA + LIGHTBOX ---------- */
+  var galFigs = [].slice.call(document.querySelectorAll('.gal figure'));
+  var galBtns = [].slice.call(document.querySelectorAll('.galfilter button'));
+
+  galBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      galBtns.forEach(function(x){ x.classList.remove('on'); x.setAttribute('aria-pressed','false'); });
+      b.classList.add('on');
+      b.setAttribute('aria-pressed','true');
+      var cat = b.getAttribute('data-cat');
+      galFigs.forEach(function(f){
+        var show = (cat === 'todos' || f.getAttribute('data-cat') === cat);
+        f.classList.toggle('hide', !show);
+        if(show) f.classList.add('in');   /* já revelada: não pode voltar invisível */
+      });
+    });
+  });
+
+  var glb  = document.getElementById('glb');
+  var glbi = document.getElementById('glbi');
+  var glbt = document.getElementById('glbt');
+  var glbs = document.getElementById('glbs');
+  var glbx = document.getElementById('glbx');
+  var glbp = document.getElementById('glbp');
+  var glbn = document.getElementById('glbn');
+  var gIdx = 0, gFocus = null;
+
+  function gVisible(){
+    return galFigs.filter(function(f){ return !f.classList.contains('hide'); });
+  }
+  function gShow(i){
+    var list = gVisible();
+    if(!list.length) return;
+    gIdx = (i + list.length) % list.length;
+    var fig = list[gIdx];
+    var img = fig.querySelector('img');
+    var cap = fig.querySelector('figcaption');
+    glbi.src = img.getAttribute('src');
+    glbi.alt = img.getAttribute('alt') || '';
+    glbt.textContent = cap.querySelector('span').textContent;
+    glbs.textContent = cap.querySelector('b').textContent;
+  }
+  function gOpen(fig){
+    gFocus = fig;
+    gShow(gVisible().indexOf(fig));
+    glb.classList.add('on');
+    requestAnimationFrame(function(){ glb.classList.add('vis'); });
+    document.body.style.overflow = 'hidden';
+    glbx.focus();
+  }
+  function gClose(){
+    if(!glb.classList.contains('on')) return;
+    glb.classList.remove('vis');
+    setTimeout(function(){ glb.classList.remove('on'); glbi.removeAttribute('src'); }, 420);
+    document.body.style.overflow = '';
+    if(gFocus) gFocus.focus();
+  }
+
+  if(glb){
+    galFigs.forEach(function(f){
+      f.setAttribute('tabindex','0');
+      f.setAttribute('role','button');
+      f.addEventListener('click', function(){ gOpen(f); });
+      f.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); gOpen(f); }
+      });
+    });
+    glbx.addEventListener('click', gClose);
+    glbp.addEventListener('click', function(e){ e.stopPropagation(); gShow(gIdx - 1); });
+    glbn.addEventListener('click', function(e){ e.stopPropagation(); gShow(gIdx + 1); });
+    glb.addEventListener('click', function(e){ if(e.target === glb || e.target === glbi) gClose(); });
+    document.addEventListener('keydown', function(e){
+      if(!glb.classList.contains('on')) return;
+      if(e.key === 'Escape') gClose();
+      if(e.key === 'ArrowLeft') gShow(gIdx - 1);
+      if(e.key === 'ArrowRight') gShow(gIdx + 1);
+    });
+  }
+
+  /* ---------- ARRASTAR O TRILHO DE AVALIAÇÕES ---------- */
+  var rail = document.querySelector('.rail');
+  if(rail){
+    var down = false, startX = 0, startS = 0;
+    rail.addEventListener('mousedown', function(e){ down = true; startX = e.pageX; startS = rail.scrollLeft; rail.style.cursor='grabbing'; });
+    window.addEventListener('mouseup', function(){ down = false; rail.style.cursor=''; });
+    rail.addEventListener('mousemove', function(e){
+      if(!down) return;
+      e.preventDefault();
+      rail.scrollLeft = startS - (e.pageX - startX) * 1.2;
+    });
+  }
+})();
+</script>
+</body>
+</html>
