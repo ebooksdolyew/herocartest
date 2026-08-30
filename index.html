@@ -536,9 +536,25 @@ section{position:relative}
   border-radius:5px;border:1px solid var(--line-2);display:block;
   box-shadow:0 40px 90px -44px #000}
 
+/* botão de som da apresentação (autoplay exige mudo; o som depende de um clique) */
+.vsound{position:absolute;z-index:2;right:10px;bottom:10px;display:inline-flex;align-items:center;gap:7px;
+  padding:8px 13px 8px 10px;border-radius:999px;cursor:pointer;
+  border:1px solid rgba(255,255,255,.22);background:rgba(10,10,10,.62);color:#fff;
+  -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+  font-family:var(--f-display);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  transition:background .25s var(--ease),border-color .25s var(--ease),transform .25s var(--ease)}
+.vsound:hover{background:rgba(10,10,10,.82);border-color:rgba(242,194,48,.55);transform:translateY(-1px)}
+.vsound:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.vsound svg{width:17px;height:17px;flex:none;fill:currentColor;stroke:currentColor}
+.vsound__on{display:none}
+.vsound[aria-pressed="true"]{color:var(--gold);border-color:rgba(242,194,48,.5)}
+.vsound[aria-pressed="true"] .vsound__off{display:none}
+.vsound[aria-pressed="true"] .vsound__on{display:block}
+@media (max-width:640px){.vsound__txt{display:none}.vsound{padding:9px;right:8px;bottom:8px}}
+
 /* vídeo de fundo do CTA final */
 .vbg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;
-  background:url(assets/galeria/suv-creta.jpg) center/cover no-repeat}
+  background:url(assets/galeria/suv-creta.webp) center/cover no-repeat}
 .vbg video{width:100%;height:100%;object-fit:cover;filter:grayscale(.15) brightness(.78) contrast(1.06);
   opacity:0;transition:opacity .9s var(--ease)}
 .vbg video.ready{opacity:1}
@@ -931,7 +947,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 <!-- ============================ NAV ============================ -->
 <header class="nav" id="nav">
   <a href="#topo" aria-label="Studio G85 — início">
-    <img class="nav__logo" src="assets/galeria/logo-hero-lN6XQNPM.png" alt="Studio G85">
+    <img class="nav__logo" src="assets/galeria/logo-hero-lN6XQNPM.webp" alt="Studio G85">
   </a>
   <nav class="nav__links" id="menu">
     <a href="#sobre">Sobre</a>
@@ -954,8 +970,8 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 
     <div class="hero__bg">
       <div class="hero__bgInner">
-        <img src="assets/galeria/hero-creta.png" alt="Hyundai Creta cinza finalizada no box do Studio G85" fetchpriority="high">
-        <video id="heroVid" poster="assets/galeria/hero-creta.png" muted loop playsinline preload="none"
+        <img src="assets/galeria/hero-creta.webp" alt="Hyundai Creta cinza finalizada no box do Studio G85" fetchpriority="high">
+        <video id="heroVid" poster="assets/galeria/hero-creta.webp" muted loop playsinline preload="none"
                disablepictureinpicture disableremoteplayback aria-hidden="true" tabindex="-1">
           <!-- 1080p H.264 com faststart: toca em todos os navegadores -->
           <source data-src="assets/videos/hero-web.webm" type="video/webm">
@@ -965,7 +981,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
     </div>
 
     <div class="hero__content">
-      <img class="hero__logo" src="assets/galeria/logo-hero-lN6XQNPM.png" alt="Studio G85" width="420" height="150">
+      <img class="hero__logo" src="assets/galeria/logo-hero-lN6XQNPM.webp" alt="Studio G85" width="420" height="150">
 
       <div class="hero__txt">
       <h1 class="hero__title lines">
@@ -1036,9 +1052,25 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 
       <div class="manifesto__media r-r">
         <div class="vpres">
-          <video src="assets/videos/apresentacao-g85.mp4" poster="assets/galeria/suv-creta.jpg"
+          <video id="presVid" poster="assets/galeria/suv-creta.webp"
                  autoplay loop muted playsinline preload="metadata"
-                 aria-label="Apresentação do Studio G85"></video>
+                 aria-label="Apresentação do Studio G85">
+            <source src="assets/videos/apresentacao-g85.webm" type="video/webm">
+            <source src="assets/videos/apresentacao-g85.mp4" type="video/mp4">
+          </video>
+          <button type="button" class="vsound" id="presSound"
+                  aria-pressed="false" aria-label="Ativar som da apresentação">
+            <svg class="vsound__off" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M11 5 6.5 9H3v6h3.5L11 19V5z"/>
+              <path d="m16.5 9.5 4 4m0-4-4 4" stroke-width="1.9" stroke-linecap="round" fill="none"/>
+            </svg>
+            <svg class="vsound__on" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M11 5 6.5 9H3v6h3.5L11 19V5z"/>
+              <path d="M15.5 8.8a4.4 4.4 0 0 1 0 6.4M18 6.4a7.9 7.9 0 0 1 0 11.2"
+                    stroke-width="1.9" stroke-linecap="round" fill="none"/>
+            </svg>
+            <span class="vsound__txt">Ouvir</span>
+          </button>
         </div>
       </div>
     </div>
@@ -1196,83 +1228,83 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 
     <div class="gal">
       <figure class="r-s" data-cat="suvs" style="transition-delay:0.00s">
-        <img src="assets/galeria/suv-creta.jpg" alt="Hyundai Creta branco com proteção premium" loading="lazy" decoding="async">
+        <img src="assets/galeria/suv-creta.webp" alt="Hyundai Creta branco com proteção premium" loading="lazy" decoding="async">
         <figcaption><span>Hyundai Creta</span><b>Proteção premium · branco</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="suvs" style="transition-delay:0.05s">
-        <img src="assets/galeria/suv-ram.jpg" alt="RAM Rampage cinza com acabamento premium" loading="lazy" decoding="async">
+        <img src="assets/galeria/suv-ram.webp" alt="RAM Rampage cinza com acabamento premium" loading="lazy" decoding="async">
         <figcaption><span>RAM Rampage</span><b>Acabamento premium · cinza</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="suvs" style="transition-delay:0.10s">
-        <img src="assets/galeria/suv-bronco.jpg" alt="Ford Bronco Sport branco com proteção completa" loading="lazy" decoding="async">
+        <img src="assets/galeria/suv-bronco.webp" alt="Ford Bronco Sport branco com proteção completa" loading="lazy" decoding="async">
         <figcaption><span>Ford Bronco Sport</span><b>Proteção completa · branco</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="suvs" style="transition-delay:0.15s">
-        <img src="assets/galeria/suv-hilux.jpg" alt="Toyota Hilux vermelha com tratamento premium" loading="lazy" decoding="async">
+        <img src="assets/galeria/suv-hilux.webp" alt="Toyota Hilux vermelha com tratamento premium" loading="lazy" decoding="async">
         <figcaption><span>Toyota Hilux</span><b>Tratamento premium · vermelha</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="suvs" style="transition-delay:0.20s">
-        <img src="assets/galeria/suv-tcross.jpg" alt="VW T-Cross cinza com vitrificação" loading="lazy" decoding="async">
+        <img src="assets/galeria/suv-tcross.webp" alt="VW T-Cross cinza com vitrificação" loading="lazy" decoding="async">
         <figcaption><span>VW T-Cross</span><b>Vitrificação · cinza</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="suvs" style="transition-delay:0.25s">
-        <img src="assets/galeria/suv-discovery.png" alt="Land Rover Discovery vermelha com serviços premium" loading="lazy" decoding="async">
+        <img src="assets/galeria/suv-discovery.webp" alt="Land Rover Discovery vermelha com serviços premium" loading="lazy" decoding="async">
         <figcaption><span>Land Rover Discovery</span><b>Serviços premium · vermelha</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="carros" style="transition-delay:0.30s">
-        <img src="assets/galeria/carro-polo.jpg" alt="VW Polo vermelho com proteção premium" loading="lazy" decoding="async">
+        <img src="assets/galeria/carro-polo.webp" alt="VW Polo vermelho com proteção premium" loading="lazy" decoding="async">
         <figcaption><span>VW Polo</span><b>Proteção premium · vermelho</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="carros" style="transition-delay:0.35s">
-        <img src="assets/galeria/carro-civic.jpg" alt="Honda Civic cinza com vitrificação" loading="lazy" decoding="async">
+        <img src="assets/galeria/carro-civic.webp" alt="Honda Civic cinza com vitrificação" loading="lazy" decoding="async">
         <figcaption><span>Honda Civic</span><b>Vitrificação · cinza</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="carros">
-        <img src="assets/galeria/carro-corolla.jpg" alt="Toyota Corolla preto com tratamento completo" loading="lazy" decoding="async">
+        <img src="assets/galeria/carro-corolla.webp" alt="Toyota Corolla preto com tratamento completo" loading="lazy" decoding="async">
         <figcaption><span>Toyota Corolla</span><b>Tratamento completo · preto</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="carros">
-        <img src="assets/galeria/carro-civic-branco.jpg" alt="Honda Civic branco com acabamento premium" loading="lazy" decoding="async">
+        <img src="assets/galeria/carro-civic-branco.webp" alt="Honda Civic branco com acabamento premium" loading="lazy" decoding="async">
         <figcaption><span>Honda Civic</span><b>Acabamento premium · branco</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="carros">
-        <img src="assets/galeria/carro-virtus.jpg" alt="VW Virtus GTS cinza com proteção premium" loading="lazy" decoding="async">
+        <img src="assets/galeria/carro-virtus.webp" alt="VW Virtus GTS cinza com proteção premium" loading="lazy" decoding="async">
         <figcaption><span>VW Virtus GTS</span><b>Proteção premium · cinza</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="carros">
-        <img src="assets/galeria/carro-sedan-esportivo.png" alt="Sedan esportivo com acabamento premium" loading="lazy" decoding="async">
+        <img src="assets/galeria/carro-sedan-esportivo.webp" alt="Sedan esportivo com acabamento premium" loading="lazy" decoding="async">
         <figcaption><span>Sedan esportivo</span><b>Acabamento premium</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="motos">
-        <img src="assets/galeria/moto-bmw-r1250.png" alt="BMW R1250 GS com película e acessórios premium" loading="lazy" decoding="async">
+        <img src="assets/galeria/moto-bmw-r1250.webp" alt="BMW R1250 GS com película e acessórios premium" loading="lazy" decoding="async">
         <figcaption><span>BMW R1250 GS</span><b>Película e acessórios premium</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="motos">
-        <img src="assets/galeria/moto-bmw-gs.jpg" alt="BMW GS Adventure preta com proteção completa" loading="lazy" decoding="async">
+        <img src="assets/galeria/moto-bmw-gs.webp" alt="BMW GS Adventure preta com proteção completa" loading="lazy" decoding="async">
         <figcaption><span>BMW GS Adventure</span><b>Proteção completa · preta</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="motos">
-        <img src="assets/galeria/moto-kawasaki-ninja.jpg" alt="Kawasaki Ninja ZX-4RR verde com acabamento premium" loading="lazy" decoding="async">
+        <img src="assets/galeria/moto-kawasaki-ninja.webp" alt="Kawasaki Ninja ZX-4RR verde com acabamento premium" loading="lazy" decoding="async">
         <figcaption><span>Kawasaki Ninja ZX-4RR</span><b>Acabamento premium · verde</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="ppf">
-        <img src="assets/galeria/ppf-tiggo-exterior.jpg" alt="Tiggo 8 PRO com PPF interno Black Piano" loading="lazy" decoding="async">
+        <img src="assets/galeria/ppf-tiggo-exterior.webp" alt="Tiggo 8 PRO com PPF interno Black Piano" loading="lazy" decoding="async">
         <figcaption><span>Tiggo 8 PRO</span><b>PPF interno Black Piano</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="ppf">
-        <img src="assets/galeria/ppf-tiggo-interior.jpg" alt="Interior Tiggo 8 PRO com PPF no painel e multimídia" loading="lazy" decoding="async">
+        <img src="assets/galeria/ppf-tiggo-interior.webp" alt="Interior Tiggo 8 PRO com PPF no painel e multimídia" loading="lazy" decoding="async">
         <figcaption><span>Tiggo 8 PRO</span><b>PPF no painel e multimídia</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="ppf">
-        <img src="assets/galeria/ppf-tiggo-console.jpg" alt="Console central Tiggo 8 PRO com PPF Black Piano" loading="lazy" decoding="async">
+        <img src="assets/galeria/ppf-tiggo-console.webp" alt="Console central Tiggo 8 PRO com PPF Black Piano" loading="lazy" decoding="async">
         <figcaption><span>Tiggo 8 PRO</span><b>PPF Black Piano no console</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="ppf">
-        <img src="assets/galeria/ppf-tiggo-ar.jpg" alt="Saída de ar traseiro Tiggo 8 PRO com PPF" loading="lazy" decoding="async">
+        <img src="assets/galeria/ppf-tiggo-ar.webp" alt="Saída de ar traseiro Tiggo 8 PRO com PPF" loading="lazy" decoding="async">
         <figcaption><span>Tiggo 8 PRO</span><b>PPF na saída de ar traseira</b></figcaption>
       </figure>
       <figure class="r-s" data-cat="ppf">
-        <img src="assets/galeria/ppf-byd.png" alt="Sedã BYD com proteção PPF premium" loading="lazy" decoding="async">
+        <img src="assets/galeria/ppf-byd.webp" alt="Sedã BYD com proteção PPF premium" loading="lazy" decoding="async">
         <figcaption><span>Sedã BYD</span><b>Proteção PPF premium</b></figcaption>
       </figure>
     </div>
@@ -1307,43 +1339,61 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
     </div>
 
     <div class="vgrid r">
-      <button class="vcard" data-src="assets/videos/creta-processo.mp4" data-t="Processo Detalhado — Creta" data-d="Vitrificação de pintura e plásticos">
-        <video src="assets/videos/creta-processo.mp4#t=0.5" muted loop playsinline preload="metadata"></video>
+      <button class="vcard" data-webm="assets/videos/creta-processo.webm" data-mp4="assets/videos/creta-processo.mp4" data-t="Processo Detalhado — Creta" data-d="Vitrificação de pintura e plásticos">
+        <video muted loop playsinline preload="metadata">
+          <source src="assets/videos/creta-processo.webm#t=0.5" type="video/webm">
+          <source src="assets/videos/creta-processo.mp4#t=0.5" type="video/mp4">
+        </video>
         <div class="vcard__scrim"></div>
         <div class="vcard__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="vcard__meta"><b>Processo Detalhado — Creta</b><span>Vitrificação de pintura e plásticos</span></div>
       </button>
 
-      <button class="vcard" data-src="assets/videos/porsche-cayenne-ppf.mp4" data-t="Porsche Cayenne — PPF" data-d="Manutenção de PPF frontal e proteção premium">
-        <video src="assets/videos/porsche-cayenne-ppf.mp4#t=0.5" muted loop playsinline preload="metadata"></video>
+      <button class="vcard" data-webm="assets/videos/porsche-cayenne-ppf.webm" data-mp4="assets/videos/porsche-cayenne-ppf.mp4" data-t="Porsche Cayenne — PPF" data-d="Manutenção de PPF frontal e proteção premium">
+        <video muted loop playsinline preload="metadata">
+          <source src="assets/videos/porsche-cayenne-ppf.webm#t=0.5" type="video/webm">
+          <source src="assets/videos/porsche-cayenne-ppf.mp4#t=0.5" type="video/mp4">
+        </video>
         <div class="vcard__scrim"></div>
         <div class="vcard__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="vcard__meta"><b>Porsche Cayenne — PPF</b><span>Manutenção de PPF frontal e proteção premium</span></div>
       </button>
 
-      <button class="vcard" data-src="assets/videos/vw-completo.mp4" data-t="Tratamento Completo — BYD" data-d="Pacote premium de proteção">
-        <video src="assets/videos/vw-completo.mp4#t=0.5" muted loop playsinline preload="metadata"></video>
+      <button class="vcard" data-webm="assets/videos/vw-completo.webm" data-mp4="assets/videos/vw-completo.mp4" data-t="Tratamento Completo — BYD" data-d="Pacote premium de proteção">
+        <video muted loop playsinline preload="metadata">
+          <source src="assets/videos/vw-completo.webm#t=0.5" type="video/webm">
+          <source src="assets/videos/vw-completo.mp4#t=0.5" type="video/mp4">
+        </video>
         <div class="vcard__scrim"></div>
         <div class="vcard__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="vcard__meta"><b>Tratamento Completo — BYD</b><span>Pacote premium de proteção</span></div>
       </button>
 
-      <button class="vcard" data-src="assets/videos/tracker-charme.mp4" data-t="Tracker 2008 — Restauração" data-d="Charme e elegância preservados">
-        <video src="assets/videos/tracker-charme.mp4#t=0.5" muted loop playsinline preload="metadata"></video>
+      <button class="vcard" data-webm="assets/videos/tracker-charme.webm" data-mp4="assets/videos/tracker-charme.mp4" data-t="Tracker 2008 — Restauração" data-d="Charme e elegância preservados">
+        <video muted loop playsinline preload="metadata">
+          <source src="assets/videos/tracker-charme.webm#t=0.5" type="video/webm">
+          <source src="assets/videos/tracker-charme.mp4#t=0.5" type="video/mp4">
+        </video>
         <div class="vcard__scrim"></div>
         <div class="vcard__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="vcard__meta"><b>Tracker 2008 — Restauração</b><span>Charme e elegância preservados</span></div>
       </button>
 
-      <button class="vcard" data-src="assets/videos/ranger-chrome-delete.mp4" data-t="Ranger — Chrome Delete" data-d="PPF transparente e fumê personalizado">
-        <video src="assets/videos/ranger-chrome-delete.mp4#t=0.5" muted loop playsinline preload="metadata"></video>
+      <button class="vcard" data-webm="assets/videos/ranger-chrome-delete.webm" data-mp4="assets/videos/ranger-chrome-delete.mp4" data-t="Ranger — Chrome Delete" data-d="PPF transparente e fumê personalizado">
+        <video muted loop playsinline preload="metadata">
+          <source src="assets/videos/ranger-chrome-delete.webm#t=0.5" type="video/webm">
+          <source src="assets/videos/ranger-chrome-delete.mp4#t=0.5" type="video/mp4">
+        </video>
         <div class="vcard__scrim"></div>
         <div class="vcard__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="vcard__meta"><b>Ranger — Chrome Delete</b><span>PPF transparente e fumê personalizado</span></div>
       </button>
 
-      <button class="vcard" data-src="assets/videos/ppf-protecao.mp4" data-t="PPF — Proteção Premium" data-d="Projetos personalizados para seu veículo">
-        <video src="assets/videos/ppf-protecao.mp4#t=0.5" muted loop playsinline preload="metadata"></video>
+      <button class="vcard" data-webm="assets/videos/ppf-protecao.webm" data-mp4="assets/videos/ppf-protecao.mp4" data-t="PPF — Proteção Premium" data-d="Projetos personalizados para seu veículo">
+        <video muted loop playsinline preload="metadata">
+          <source src="assets/videos/ppf-protecao.webm#t=0.5" type="video/webm">
+          <source src="assets/videos/ppf-protecao.mp4#t=0.5" type="video/mp4">
+        </video>
         <div class="vcard__scrim"></div>
         <div class="vcard__play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="vcard__meta"><b>PPF — Proteção Premium</b><span>Projetos personalizados para seu veículo</span></div>
@@ -1371,7 +1421,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 <!-- ============================ QUOTE BREAK ============================ -->
 <section class="break">
   <div class="break__bg" data-speed="0.18">
-    <img src="assets/galeria/suv-creta.jpg" alt="" aria-hidden="true" loading="lazy">
+    <img src="assets/galeria/suv-creta.webp" alt="" aria-hidden="true" loading="lazy">
   </div>
   <div class="break__txt">
     <q class="lines r">
@@ -1509,7 +1559,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
       </div>
       <div class="r-r">
         <div class="frame">
-          <img src="assets/galeria/suv-bronco.jpg" alt="Ford Bronco Sport branco no ambiente climatizado do Studio G85" loading="lazy" data-speed="0.06">
+          <img src="assets/galeria/suv-bronco.webp" alt="Ford Bronco Sport branco no ambiente climatizado do Studio G85" loading="lazy" data-speed="0.06">
         </div>
       </div>
     </div>
@@ -1559,9 +1609,10 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 <!-- ============================ CONTATO ============================ -->
 <section id="contato" class="pad">
   <div class="vbg" aria-hidden="true">
-    <video id="ctaVid" poster="assets/galeria/suv-creta.jpg" muted loop playsinline webkit-playsinline
+    <video id="ctaVid" poster="assets/galeria/suv-creta.webp" muted loop playsinline webkit-playsinline
            preload="none" disablepictureinpicture disableremoteplayback
            aria-hidden="true" tabindex="-1">
+      <source data-src="assets/videos/creta-resultado.webm" type="video/webm">
       <source data-src="assets/videos/creta-resultado.mp4" type="video/mp4">
     </video>
   </div>
@@ -1612,7 +1663,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 <footer>
   <div class="shell">
     <div class="foot">
-      <img src="assets/galeria/logo-hero-lN6XQNPM.png" alt="Studio G85">
+      <img src="assets/galeria/logo-hero-lN6XQNPM.webp" alt="Studio G85">
       <nav class="foot__nav">
         <a href="#sobre">Sobre</a>
         <a href="#servicos">Serviços</a>
@@ -1872,6 +1923,23 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
   }, {threshold:0});
   cards.forEach(function(c){ vio.observe(c); });
 
+  /* o lightbox troca de vídeo: monta <source> webm + mp4 a cada abertura */
+  function setLbSources(webm, mp4){
+    while(lbv.firstChild) lbv.removeChild(lbv.firstChild);
+    lbv.removeAttribute('src');
+    if(webm){
+      var sw = document.createElement('source');
+      sw.src = webm; sw.type = 'video/webm';
+      lbv.appendChild(sw);
+    }
+    if(mp4){
+      var sm = document.createElement('source');
+      sm.src = mp4; sm.type = 'video/mp4';
+      lbv.appendChild(sm);
+    }
+    lbv.load();
+  }
+
   cards.forEach(function(c){
     var v = c.querySelector('video');
     c.addEventListener('mouseenter', function(){
@@ -1881,7 +1949,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
     c.addEventListener('mouseleave', function(){ if(v){ v.pause(); v.currentTime = 0.5; } });
     c.addEventListener('click', function(){
       lastFocus = c;
-      lbv.src = c.getAttribute('data-src');
+      setLbSources(c.getAttribute('data-webm'), c.getAttribute('data-mp4'));
       lbt.textContent = c.getAttribute('data-t');
       lbd.textContent = c.getAttribute('data-d');
       lb.classList.add('on');
@@ -1898,8 +1966,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
     lbv.pause();
     setTimeout(function(){
       lb.classList.remove('on');
-      lbv.removeAttribute('src');
-      lbv.load();
+      setLbSources(null, null);
     }, 420);
     document.body.style.overflow = '';
     if(lastFocus) lastFocus.focus();
@@ -1907,6 +1974,39 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
   if(lbx) lbx.addEventListener('click', closeLb);
   if(lb) lb.addEventListener('click', function(e){ if(e.target === lb) closeLb(); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLb(); });
+
+  /* ---------- APRESENTAÇÃO: botão de som ---------- */
+  /* o autoplay só é permitido mudo; o áudio precisa de um gesto do usuário */
+  var presVid = document.getElementById('presVid');
+  var presSound = document.getElementById('presSound');
+  if(presVid && presSound){
+    presSound.addEventListener('click', function(){
+      var ligar = presVid.muted;
+      presVid.muted = !ligar;
+      if(ligar){
+        presVid.volume = 1;
+        var p = presVid.play(); if(p && p.catch) p.catch(function(){});
+      }
+      presSound.setAttribute('aria-pressed', ligar ? 'true' : 'false');
+      presSound.setAttribute('aria-label', ligar ? 'Desativar som da apresentação'
+                                                 : 'Ativar som da apresentação');
+      presSound.querySelector('.vsound__txt').textContent = ligar ? 'Som ligado' : 'Ouvir';
+    });
+    /* som só faz sentido com o vídeo à vista: silencia ao sair da tela */
+    new IntersectionObserver(function(en){
+      en.forEach(function(e){
+        if(!e.isIntersecting && !presVid.muted) presSound.click();
+      });
+    }, {threshold:0}).observe(presVid);
+  }
+
+  /* o lightbox de vídeo tem áudio: silencia a apresentação enquanto estiver aberto */
+  if(presVid && lb){
+    var mo = new MutationObserver(function(){
+      if(lb.classList.contains('on') && !presVid.muted && presSound) presSound.click();
+    });
+    mo.observe(lb, {attributes:true, attributeFilter:['class']});
+  }
 
   /* ---------- GALERIA: FILTRO POR CATEGORIA + LIGHTBOX ---------- */
   var galFigs = [].slice.call(document.querySelectorAll('.gal figure'));
