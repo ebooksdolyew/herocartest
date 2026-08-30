@@ -1,0 +1,8 @@
+# Studio G85 — https://www.studiog85.com/
+User-agent: *
+Allow: /
+
+# arquivos de trabalho que não precisam de indexação
+Disallow: /assets/videos/
+
+Sitemap: https://www.studiog85.com/sitemap.xml

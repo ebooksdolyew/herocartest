@@ -1,0 +1,25 @@
+# Redirects — lidos por Netlify e Cloudflare Pages.
+# No GitHub Pages o apex -> www é resolvido pelo DNS + arquivo CNAME.
+
+# host canônico
+http://studiog85.com/*      https://www.studiog85.com/:splat   301!
+https://studiog85.com/*     https://www.studiog85.com/:splat   301!
+http://www.studiog85.com/*  https://www.studiog85.com/:splat   301!
+
+# URLs limpas para as páginas de serviço
+/vitrificacao       /servicos/vitrificacao-ceramica.html        301
+/vitrificacao-ceramica  /servicos/vitrificacao-ceramica.html    301
+/ppf                /servicos/ppf-paint-protection-film.html    301
+/pelicula           /servicos/pelicula-window-blue.html         301
+/peliculas          /servicos/pelicula-window-blue.html         301
+/window-blue        /servicos/pelicula-window-blue.html         301
+/insulfilm          /servicos/pelicula-window-blue.html         301
+/lavagem            /servicos/lavagem-tecnica.html              301
+/lavagem-tecnica    /servicos/lavagem-tecnica.html              301
+/servicos           /index.html#servicos                        301
+/privacidade        /politica-de-privacidade.html               301
+/contato            /index.html#contato                         301
+/orcamento          /index.html#orcamento                       301
+
+# tudo que sobrar cai na página de erro
+/*                  /404.html                                   404
